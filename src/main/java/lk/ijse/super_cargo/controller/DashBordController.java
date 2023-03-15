@@ -5,10 +5,10 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class DashBordController {
@@ -26,10 +26,11 @@ public class DashBordController {
     private JFXButton stockBtn;
 
     @FXML
-    void stockBtnClick(MouseEvent event) throws IOException {
+    void stockBtnClick(ActionEvent event) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/stockss.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+
     }
 
     @FXML
