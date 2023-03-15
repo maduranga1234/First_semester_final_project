@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.LoginController">
+   <children>
+      <ImageView fitHeight="409.0" fitWidth="725.0" layoutX="-7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.super_cargo.image/usse.jpg" />
+         </image>
+         <effect>
+            <MotionBlur radius="6.75" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="93.0" fitWidth="98.0" layoutX="593.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.super_cargo.image/download__1_-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="loginAnchorPane" layoutX="79.0" layoutY="85.0" opacity="0.59" prefHeight="281.0" prefWidth="492.0" styleClass="loginAnchorPane" stylesheets="@../Style.css">
+         <children>
+            <ComboBox fx:id="logincombo" layoutX="34.0" layoutY="75.0" prefHeight="25.0" prefWidth="189.0" promptText="Admin or Manager" styleClass="passwordTxt" stylesheets="@../Style.css" visibleRowCount="2" />
+            <Label layoutX="60.0" layoutY="15.0" prefHeight="39.0" prefWidth="98.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT Italic" size="32.0" />
+               </font>
+            </Label>
+            <TextField fx:id="userNameTxt" layoutX="34.0" layoutY="119.0" prefHeight="25.0" prefWidth="189.0" promptText="User name" styleClass="userNameTxt" stylesheets="@../Style.css">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="passwordTxt" layoutX="34.0" layoutY="164.0" prefHeight="25.0" prefWidth="189.0" promptText="Pass word" styleClass="passwordTxt">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </TextField>
+            <Label layoutX="33.0" layoutY="201.0" prefHeight="25.0" prefWidth="122.0" style="-fx-prompt-text: #4EF12A;" stylesheets="@../Style.css" text="Forget password ?" textFill="#08ff19f5">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="23.0" fitWidth="50.0" layoutX="27.0" layoutY="243.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/images-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="74.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/59439-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutX="257.0" layoutY="1.0" prefHeight="279.0" prefWidth="231.0" styleClass="imageAnchorPane" stylesheets="@../Style.css">
+               <children>
+                  <ImageView fitHeight="280.0" fitWidth="238.0" layoutX="2.0">
+                     <image>
+                        <Image url="@../lk.ijse.super_cargo.image/Untitleddesign.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label layoutX="165.0" layoutY="206.0" text="Sing up" textFill="#27ffff">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btn1" buttonType="RAISED" layoutX="155.0" layoutY="242.0" onAction="#LoginOnAction" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #4EF12A; -fx-background-radius: 12px; -fx-font-weight: bold; -fx-prompt-text: black; -fx-prompt-text: bold;" text="Login" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

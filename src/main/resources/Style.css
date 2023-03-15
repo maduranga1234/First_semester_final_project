@@ -1,0 +1,32 @@
+/*.loginAnchorPane{*/
+/*-fx-background-color:gray;*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,10.8), 10, 0, 0, 10);*/
+/*    -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,10.8),10,0,0,10);*/
+/*    -fx-background-radius:20px;*/
+/*}*/
+
+/*.imageAnchorPane{*/
+/*    -fx-background-color:light;*/
+
+/*    -fx-background-radius:20px;*/
+/*}*/
+
+/*.loginBtn{*/
+
+/*    -fx-background-radius:9px;*/
+/*    -fx-prompt-text-fill:black ;*/
+/*}*/
+
+/*.userNameTxt{*/
+/*    -fx-background-radius:16px;*/
+/*    -fx-prompt-text-fill:black;*/
+/*}*/
+
+/*.passwordTxt{*/
+/*    -fx-background-radius:16px;*/
+/*    -fx-prompt-text-fill:black ;*/
+/*}*/
+/*.Label{*/
+
+/*    -fx-prompt-text-fill:#4EF12A ;*/
+/*}*/
