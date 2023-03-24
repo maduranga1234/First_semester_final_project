@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorpaneHome" opacity="0.8" prefHeight="617.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.EmployeeController">
+   <children>
+      <JFXButton fx:id="EmpUpdateBtn" layoutX="805.0" layoutY="284.0" onAction="#UpdateClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: yellow; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Update">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="EmpSaveBtn" layoutX="699.0" layoutY="284.0" onAction="#SaveClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #3AF900; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Save">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="EmpDeleteBtn" layoutX="906.0" layoutY="284.0" onAction="#DeleteClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #FF0E0E; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Delete">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="EmployeeTbl" layoutX="-2.0" layoutY="326.0" prefHeight="290.0" prefWidth="1025.0">
+         <columns>
+            <TableColumn fx:id="IdColum" prefWidth="95.0" text="Employee Id" />
+            <TableColumn fx:id="NameColum" prefWidth="153.0" text="Name" />
+            <TableColumn fx:id="AddressColum" prefWidth="107.0" text="Nic" />
+            <TableColumn fx:id="NicColum" minWidth="0.0" prefWidth="164.0" text="Date Of Birth" />
+            <TableColumn fx:id="DobColum" prefWidth="165.0" text="Address" />
+            <TableColumn fx:id="ContactColum" prefWidth="175.0" text="Contact Number" />
+            <TableColumn fx:id="JobColum" prefWidth="165.0" text="Job Titel" />
+         </columns>
+      </TableView>
+      <JFXTextField fx:id="EmpNameText" focusColor="#0d4cdd" labelFloat="true" layoutX="340.0" layoutY="111.0" prefHeight="27.0" prefWidth="291.0" promptText="Name" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpAddressText" focusColor="#0d4cdd" labelFloat="true" layoutX="704.0" layoutY="111.0" prefHeight="27.0" prefWidth="291.0" promptText="Address" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpNicText" focusColor="#0d4cdd" labelFloat="true" layoutX="340.0" layoutY="164.0" prefHeight="27.0" prefWidth="291.0" promptText="Nic" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpDobText" focusColor="#0d4cdd" labelFloat="true" layoutX="707.0" layoutY="164.0" prefHeight="27.0" prefWidth="291.0" promptText="Date Of Birth" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpContactText" focusColor="#0d4cdd" labelFloat="true" layoutX="340.0" layoutY="218.0" prefHeight="27.0" prefWidth="291.0" promptText="Contact Number" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpJopText" focusColor="#0d4cdd" labelFloat="true" layoutX="707.0" layoutY="220.0" prefHeight="27.0" prefWidth="291.0" promptText="Job Titel" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmpIdText" focusColor="#0d4cdd" labelFloat="true" layoutX="60.0" layoutY="105.0" onAction="#empIdSeachOnAction" prefHeight="27.0" prefWidth="211.0" promptText="Employee Id" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="16.0" />
+         </font>
+      </JFXTextField>
+   </children>
+</AnchorPane>

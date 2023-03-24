@@ -16,7 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class DashBordController {
+public class ManagerHomeController {
 
     @FXML
     private ResourceBundle resources;
@@ -28,28 +28,22 @@ public class DashBordController {
     private AnchorPane AnchorpaneHome;
 
     @FXML
-    private AnchorPane HomeAnchorpane;
+    private AnchorPane ManagerHomeAnchor;
 
     @FXML
-    private JFXButton HomeBtn;
+    private JFXButton exportBtnManager;
 
     @FXML
-    private JFXButton stockBtn;
+    private JFXButton OrdersManagerBtn;
 
     @FXML
-    private JFXButton exportBtn;
+    private JFXButton PaymentManagerBtn;
 
     @FXML
-    private JFXButton OrdersBtn;
+    private JFXButton StockManagerBtn;
 
     @FXML
-    private JFXButton SupplierBtn;
-
-    @FXML
-    private JFXButton PaymentBtn;
-
-    @FXML
-    private JFXButton EmployeeBtn;
+    private JFXButton HomeManagerBtn;
 
     @FXML
     private Label lblTime;
@@ -58,34 +52,18 @@ public class DashBordController {
     private Label lblDate;
 
 
-
     @FXML
-    void HomeBtnClick(ActionEvent event) throws IOException {
+    void HomeManagerBtnClick(ActionEvent event) throws IOException {
 
-            Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
-            AnchorpaneHome.getChildren().clear();
-            HomeAnchorpane.getChildren().add(load);
-
-    }
-
-    @FXML
-    void stockBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/buyer.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
         AnchorpaneHome.getChildren().clear();
-        AnchorpaneHome.getChildren().add(load);
+        ManagerHomeAnchor.getChildren().add(load);
+
 
     }
 
     @FXML
-    void exportBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/export.fxml"));
-        AnchorpaneHome.getChildren().clear();
-        AnchorpaneHome.getChildren().add(load);
-
-    }
-
-    @FXML
-    void OrdersBtnClick(ActionEvent event) throws IOException {
+    void OrderManagerBtnClick(ActionEvent event) throws IOException {
 
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/orders.fxml"));
         AnchorpaneHome.getChildren().clear();
@@ -94,28 +72,29 @@ public class DashBordController {
     }
 
     @FXML
-    void SupplierBtnClick(ActionEvent event) throws IOException {
+    void PaymentManagerBtnClick(ActionEvent event) throws IOException {
 
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/supplier.fxml"));
-        AnchorpaneHome.getChildren().clear();
-        AnchorpaneHome.getChildren().add(load);
-
-    }
-
-    @FXML
-    void PaymentBtnClick(ActionEvent event) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/payment.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+
     }
 
     @FXML
-    void EmployeeBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/employee.fxml"));
+    void StockManagerBtnClick(ActionEvent event) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/buyer.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+
     }
 
+    @FXML
+    void exportManagerBtnClick(ActionEvent event) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/export.fxml"));
+        AnchorpaneHome.getChildren().clear();
+        AnchorpaneHome.getChildren().add(load);
+
+    }
     private void Timenow(){
         Thread thread =new Thread(() ->{
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
@@ -140,16 +119,12 @@ public class DashBordController {
     }
 
 
-
-
     @FXML
     void initialize() {
-
-       Timenow();
-        assert AnchorpaneHome != null : "fx:id=\"AnchorpaneHome\" was not injected: check your FXML file 'dashBord.fxml'.";
-        assert stockBtn != null : "fx:id=\"stockBtn\" was not injected: check your FXML file 'dashBord.fxml'.";
-
-
-
+        assert exportBtnManager != null : "fx:id=\"exportBtnManager\" was not injected: check your FXML file 'managerHomePage.fxml'.";
+        assert OrdersManagerBtn != null : "fx:id=\"OrdersManagerBtn\" was not injected: check your FXML file 'managerHomePage.fxml'.";
+        assert PaymentManagerBtn != null : "fx:id=\"PaymentManagerBtn\" was not injected: check your FXML file 'managerHomePage.fxml'.";
+        assert StockManagerBtn != null : "fx:id=\"StockManagerBtn\" was not injected: check your FXML file 'managerHomePage.fxml'.";
+        Timenow();
     }
 }

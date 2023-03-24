@@ -8,78 +8,135 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="685.0" prefWidth="1354.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.DashBordController">
+<AnchorPane fx:id="HomeAnchorpane" prefHeight="685.0" prefWidth="1354.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.DashBordController">
    <children>
       <ImageView fitHeight="685.0" fitWidth="1354.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk.ijse.super_cargo.image/dash.jpg" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="AnchorpaneHome" layoutX="38.0" layoutY="46.0" opacity="0.8" prefHeight="602.0" prefWidth="1252.0">
-         <children>
-            <AnchorPane prefHeight="608.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="85.0" fitWidth="96.0" layoutX="51.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../lk.ijse.super_cargo.image/adminicon.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="73.0" layoutY="121.0" prefHeight="23.0" prefWidth="56.0" text="Admin">
-                     <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="20.0" layoutY="185.0" prefHeight="23.0" prefWidth="148.0" text="Home">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="CLOSED_HAND" />
-                     </cursor>
-                  </JFXButton>
-                  <JFXButton layoutX="20.0" layoutY="280.0" opacity="0.85" prefHeight="23.0" prefWidth="148.0" text="Export">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="20.0" layoutY="483.0" opacity="0.85" prefHeight="23.0" prefWidth="148.0" text="Employee">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="20.0" layoutY="379.0" opacity="0.85" prefHeight="23.0" prefWidth="148.0" text="Supplier">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="20.0" layoutY="430.0" opacity="0.85" prefHeight="23.0" prefWidth="148.0" text="Payment">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="stockBtn" layoutX="20.0" layoutY="233.0" onAction="#stockBtnClick" prefHeight="23.0" prefWidth="148.0" text="Stock">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="20.0" layoutY="330.0" opacity="0.85" prefHeight="23.0" prefWidth="148.0" text="Orders">
-                     <font>
-                        <Font name="Bodoni MT Bold" size="17.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton layoutX="52.0" layoutY="565.0" prefHeight="12.0" prefWidth="85.0" style="-fx-background-radius: 14; -fx-background-color: #25DEE3;" text="Log out">
-                     <font>
-                        <Font name="Book Antiqua" size="15.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="AnchorpaneHome" layoutX="255.0" layoutY="37.0" opacity="0.8" prefHeight="623.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0;" />
       <ImageView fitHeight="116.0" fitWidth="64.0" layoutX="1290.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk.ijse.super_cargo.image/download__1_-removebg-preview.png" />
          </image>
       </ImageView>
+      <AnchorPane layoutX="55.0" layoutY="37.0" prefHeight="623.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 40 0px 0px 40; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,10.8), 10, 0, 0, 10);">
+         <children>
+            <ImageView fitHeight="85.0" fitWidth="96.0" layoutX="57.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/adminicon.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="79.0" layoutY="160.0" prefHeight="23.0" prefWidth="56.0" text="Owner">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="HomeBtn" layoutX="27.0" layoutY="203.0" onAction="#HomeBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-radius: 15; -fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" stylesheets="@../Style.css" text="Home">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="exportBtn" layoutX="27.0" layoutY="297.0" onAction="#exportBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="  Export">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="EmployeeBtn" layoutX="27.0" layoutY="485.0" onAction="#EmployeeBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="     Employee">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="SupplierBtn" layoutX="27.0" layoutY="393.0" onAction="#SupplierBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="   Supplier">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="PaymentBtn" layoutX="27.0" layoutY="439.0" onAction="#PaymentBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="    Payment" textFill="#030000">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="stockBtn" layoutX="27.0" layoutY="250.0" onAction="#stockBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Buyer">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="OrdersBtn" layoutX="27.0" layoutY="345.0" onAction="#OrdersBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text=" Orders">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="lblTime" layoutX="58.0" layoutY="36.0" prefHeight="44.0" prefWidth="108.0">
+               <font>
+                  <Font name="Baskerville Old Face" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblDate" layoutX="38.0" layoutY="14.0" prefHeight="44.0" prefWidth="148.0">
+               <font>
+                  <Font name="Baskerville Old Face" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="EmployeeBtn1" layoutX="25.0" layoutY="534.0" onAction="#EmployeeBtnClick" prefHeight="23.0" prefWidth="148.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text=" Reports">
+               <font>
+                  <Font name="Bodoni MT Bold" size="17.0" />
+               </font>
+            </JFXButton>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="40.0" layoutY="592.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/external-webpage-log-out-of-personal-account-layout-web-bold-tal-revivo.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="71.0" layoutY="597.0" prefHeight="17.0" prefWidth="56.0" text="Log Out">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="40.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/homepage.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="40.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/stock.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="43.0" layoutX="33.0" layoutY="297.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/export.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="40.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/homepage.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="40.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/homepage.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="33.0" layoutX="33.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/coins.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="36.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/employye.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="33.0" fitWidth="26.0" layoutX="36.0" layoutY="538.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/report.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

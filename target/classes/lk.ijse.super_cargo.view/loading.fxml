@@ -1,38 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.LoadingController">
    <children>
       <ImageView fitHeight="430.0" fitWidth="642.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../lk.ijse.super_cargo.image/top-view-vegetables-dark-wooden-background_180532-1110.jpg" />
+            <Image url="@../lk.ijse.super_cargo.image/Eastern%20&amp;%20Allied.gif" />
          </image></ImageView>
       <ImageView fitHeight="107.0" fitWidth="73.0" layoutX="568.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../lk.ijse.super_cargo.image/download__1_-removebg-preview.png" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="loading" layoutY="406.0" prefHeight="18.0" prefWidth="642.0" progress="0.0" style="-fx-accent:green" />
-      <Label layoutX="349.0" layoutY="129.0" prefHeight="36.0" prefWidth="158.0" text="Welcome to" textFill="#0ea82f">
-         <font>
-            <Font name="Bell MT Bold" size="28.0" />
-         </font>
-      </Label>
-      <Label layoutX="410.0" layoutY="165.0" text="Eastern &amp; Allied..." textFill="#19a82a">
-         <font>
-            <Font name="Bell MT Bold" size="28.0" />
-         </font>
-      </Label>
-      <Label layoutX="362.0" layoutY="370.0" prefHeight="36.0" prefWidth="132.0" text="Loading..." textFill="#22ff00">
-         <font>
-            <Font name="Candara Bold" size="23.0" />
-         </font>
-      </Label>
+      <ProgressBar fx:id="loading" layoutX="14.0" layoutY="398.0" prefHeight="12.0" prefWidth="416.0" progress="0.0" style="-fx-accent:green" />
    </children>
 </AnchorPane>

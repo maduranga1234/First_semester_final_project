@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="366.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.SignUpController">
+   <children>
+      <ImageView fitHeight="372.0" fitWidth="559.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.super_cargo.image/istockphoto-1222581498-612x612.jpg" />
+         </image>
+         <effect>
+            <GaussianBlur radius="0.0" />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="loginAnchorPane" layoutX="73.0" layoutY="39.0" opacity="0.61" prefHeight="294.0" prefWidth="435.0" styleClass="loginAnchorPane" stylesheets="@../Style.css">
+         <children>
+            <Label layoutX="163.0" layoutY="14.0" prefHeight="39.0" prefWidth="109.0" style="-fx-text-fill: white;" text="Sign Up" textFill="WHITE">
+               <font>
+                  <Font name="Bell MT Italic" size="32.0" />
+               </font>
+            </Label>
+            <TextField fx:id="userNameTxt" layoutX="232.0" layoutY="104.0" prefHeight="25.0" prefWidth="189.0" promptText="Username" styleClass="userNameTxt" stylesheets="@../Style.css">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </TextField>
+            <Label layoutX="182.0" layoutY="210.0" textFill="#27ffff">
+               <font>
+                  <Font name="Britannic Bold" size="14.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btn2" buttonType="RAISED" layoutX="347.0" layoutY="255.0" onAction="#SignUpClick" prefHeight="25.0" prefWidth="66.0" style="-fx-background-color: #4EF12A; -fx-background-radius: 12px; -fx-font-weight: bold; -fx-prompt-text: black; -fx-prompt-text: bold;" text="Sign Up" />
+            <JFXPasswordField fx:id="Passwordtext" focusColor="#00eeff" labelFloat="true" layoutX="14.0" layoutY="214.0" prefHeight="25.0" prefWidth="189.0" promptText="  Password" style="-fx-background-radius: 16; -fx-prompt-text-fill: black; -fx-background-color: white;" unFocusColor="#05f8f0">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXPasswordField fx:id="ComPasswordText" focusColor="#00eeff" labelFloat="true" layoutX="232.0" layoutY="214.0" prefHeight="25.0" prefWidth="189.0" promptText="  Comform Password" style="-fx-background-radius: 16; -fx-prompt-text-fill: black; -fx-background-color: white;" unFocusColor="#05f8f0">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <TextField fx:id="EmailTaxt" layoutX="14.0" layoutY="104.0" prefHeight="25.0" prefWidth="189.0" promptText="Email Address" styleClass="userNameTxt" stylesheets="@../Style.css">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="IdText" layoutX="14.0" layoutY="160.0" prefHeight="25.0" prefWidth="189.0" promptText="Employee Id" styleClass="userNameTxt" stylesheets="@../Style.css">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="JobCombo" layoutX="229.0" layoutY="160.0" prefHeight="25.0" prefWidth="189.0" promptText="Owner or Manager" style="-fx-background-color: white; -fx-background-radius: 15;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

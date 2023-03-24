@@ -32,6 +32,7 @@ public class LoadingController {
     private Button btn;
 
     public void initialize() {
+
         new ShowSplashScreen().start();
     }
     class ShowSplashScreen extends Thread {
@@ -43,7 +44,7 @@ public class LoadingController {
 
 
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(450);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -60,6 +61,7 @@ public class LoadingController {
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
+
                     anchorPane.getScene().getWindow().hide();
                 });
             } catch (Exception ex) {

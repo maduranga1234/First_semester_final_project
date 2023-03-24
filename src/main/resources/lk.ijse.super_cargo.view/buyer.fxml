@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="AnchorpaneHome" opacity="0.8" prefHeight="617.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.BuyerController">
+   <children>
+      <JFXTextField fx:id="BuyerIdText" focusColor="#0d4cdd" labelFloat="true" layoutX="26.0" layoutY="130.0" prefHeight="27.0" prefWidth="171.0" promptText="Buyer Id" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="BuyerNameText" focusColor="#0d4cdd" labelFloat="true" layoutX="347.0" layoutY="130.0" prefHeight="27.0" prefWidth="291.0" promptText="Buyer Name" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="CountryText" focusColor="#0d4cdd" labelFloat="true" layoutX="698.0" layoutY="130.0" prefHeight="27.0" prefWidth="291.0" promptText="Country" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="EmailText" focusColor="#0d4cdd" labelFloat="true" layoutX="347.0" layoutY="219.0" prefHeight="27.0" prefWidth="291.0" promptText="Email Address" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="NumberText" focusColor="#0d4cdd" labelFloat="true" layoutX="698.0" layoutY="219.0" prefHeight="27.0" prefWidth="291.0" promptText="Contact Number" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="BuyerUpdateBtn" layoutX="799.0" layoutY="296.0" onAction="#UpdateClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: yellow; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Update">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="BuyerSaveBtn" layoutX="693.0" layoutY="296.0" onAction="#SaveClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #3AF900; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Save">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="BuyerDeleteBtn" layoutX="900.0" layoutY="296.0" onAction="#DeleteClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #FF0E0E; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Delete">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView layoutY="378.0" prefHeight="241.0" prefWidth="1025.0">
+         <columns>
+            <TableColumn prefWidth="150.0" text="Buyer Id" />
+            <TableColumn minWidth="0.0" prefWidth="180.0" text="Buyer Name" />
+            <TableColumn prefWidth="177.0" text="Country" />
+            <TableColumn prefWidth="282.0" text="Email Address" />
+            <TableColumn prefWidth="235.0" text="Contact Number" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
