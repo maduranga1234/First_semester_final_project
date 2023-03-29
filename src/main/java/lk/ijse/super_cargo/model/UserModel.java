@@ -36,6 +36,19 @@ public class UserModel {
 
     }
 
+    public static boolean updatePassword(User user) throws SQLException {
+
+        String sql="UPDATE user SET password=? WHERE userName=?";
+
+        PreparedStatement pstm=DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setString(1,user.getPassword());
+        pstm.setString(2,user.getUserName());
+
+        return pstm.executeUpdate() > 0;
+    }
+
+
+
 
     public static User LogingAction(User logingCont) throws SQLException {
         User logingCheck=new User();
@@ -56,10 +69,30 @@ public class UserModel {
                 System.out.println(logingCheck.getPassword());
                 System.out.println(logingCheck.getJobTitel());
             }
-
-
             return logingCheck;
         }
+
+    }
+
+    public static User SearchById(String userName) throws SQLException {
+
+        String sql="SELECT * FROM user WHERE userName=?";
+        PreparedStatement pstm=DBConnection.getInstance().getConnection().prepareStatement(sql);
+        pstm.setString(1,userName);
+        ResultSet resultSet=pstm.executeQuery();
+
+        if(resultSet.next()){
+
+            return  new User(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            );
+
+        }
+        return null;
 
     }
 }

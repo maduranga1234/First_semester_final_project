@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 import lk.ijse.super_cargo.dto.User;
 import lk.ijse.super_cargo.model.UserModel;
+import lk.ijse.super_cargo.util.ButtonColourController;
 
 public class LoginController {
 
@@ -95,7 +96,7 @@ public class LoginController {
 
     public void LoginOnAction(ActionEvent event) throws IOException {
 
-
+        ButtonColourController.btncolor(btn1,loginAnchorPane);
 
         logingCont.setUserName(userNameTxt.getText());
         logingCont.setPassword(PasswordText.getText());

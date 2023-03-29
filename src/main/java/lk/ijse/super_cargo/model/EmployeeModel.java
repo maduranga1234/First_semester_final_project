@@ -3,8 +3,12 @@ package lk.ijse.super_cargo.model;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import lk.ijse.super_cargo.db.DBConnection;
 import lk.ijse.super_cargo.dto.Employee;
+import lk.ijse.super_cargo.dto.tm.EmployeeTm;
 
 import java.util.Properties;
 
@@ -39,19 +43,18 @@ public class EmployeeModel {
 
     }
 
-    public static List<Employee> getAll() throws SQLException {
+    public static ObservableList<EmployeeTm> getAll() throws SQLException {
 
         String sql = "SELECT * FROM Employee";
-
 
         try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
             ResultSet resultSet = pstm.executeQuery();
 
-            List<Employee> allData = new ArrayList<>();
+           ObservableList<EmployeeTm> employeeData= FXCollections.observableArrayList();
 
             while (resultSet.next()) {
 
-                allData.add(new Employee(
+                employeeData.add(new EmployeeTm(
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -62,7 +65,7 @@ public class EmployeeModel {
 
                 ));
 
-            }return allData;
+            }return employeeData;
         }
 
     }

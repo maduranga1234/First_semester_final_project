@@ -35,6 +35,9 @@ public class BuyerController{
     private JFXTextField NumberText;
 
     @FXML
+    private JFXTextField UserNameText1;
+
+    @FXML
     private JFXButton BuyerUpdateBtn;
 
     @FXML

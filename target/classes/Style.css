@@ -30,3 +30,30 @@
 
     -fx-prompt-text-fill:#4EF12A ;
 }
+
+.table-view {
+    -fx-background-color:white; /* set the background color */
+    -fx-selection-bar-color: red; /* set the selection color */
+}
+.table-row-cell:selected {    -fx-background-color: blue;
+    /* set the background color of selected rows */
+    -fx-text-fill: green; /* set the text color of selected rows */}
+/*.table-row-cell:odd {*/
+/*    -fx-background-color: #dfa47e; */
+/*    !* set the background color of odd rows *!    -fx-border-color: #7B3927;*/
+/*    -fx-table-cell-border-color: #7B3927;    -fx-font-weight: bolder;*/
+/*    -fx-text-fill: #7B3927;*/
+/*}*/
+/*.table-row-cell:even {*/
+/*    -fx-background-color: #F8C399; */
+/*    !* set the background color of even rows *!    -fx-border-color: #7B3927;*/
+/*    -fx-table-cell-border-color: #7B3927;    -fx-font-weight: bolder;*/
+/*    -fx-text-fill: #7B3927;}*/
+/*.table-column {*/
+/*    -fx-alignment: center; !* set the alignment of table column *!}*/
+/*.table-view .column-header {*/
+/*    -fx-background-color:#7B3927 ;    -fx-text-fill: #7B3927;*/
+/*}*/
+/*.table-view .column-header .label {    -fx-text-fill: #dfa47e;*/
+/*    -fx-font-weight: bolder;*/
+/*}*/

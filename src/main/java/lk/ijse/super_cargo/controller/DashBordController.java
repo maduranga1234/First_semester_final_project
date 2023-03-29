@@ -12,9 +12,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import lk.ijse.super_cargo.util.ButtonColourController;
 
 public class DashBordController {
 
@@ -26,6 +31,9 @@ public class DashBordController {
 
     @FXML
     private AnchorPane AnchorpaneHome;
+
+    @FXML
+    private Label JobTitelLabel;
 
     @FXML
     private AnchorPane HomeAnchorpane;
@@ -52,12 +60,35 @@ public class DashBordController {
     private JFXButton EmployeeBtn;
 
     @FXML
+    private JFXButton ReportBtn;
+
+    @FXML
     private Label lblTime;
 
     @FXML
     private Label lblDate;
 
+    @FXML
+    private Hyperlink LogOutLink;
 
+    @FXML
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    @FXML
+    void LogOutClick(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/loging.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+
+
+
+    }
 
     @FXML
     void HomeBtnClick(ActionEvent event) throws IOException {
@@ -65,6 +96,7 @@ public class DashBordController {
             Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
             AnchorpaneHome.getChildren().clear();
             HomeAnchorpane.getChildren().add(load);
+            ButtonColourController.btncolor(HomeBtn,HomeAnchorpane);
 
     }
 
@@ -73,15 +105,16 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/buyer.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(stockBtn,AnchorpaneHome);
 
     }
 
     @FXML
     void exportBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/export.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/item.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
-
+        ButtonColourController.btncolor(exportBtn,AnchorpaneHome);
     }
 
     @FXML
@@ -90,6 +123,7 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/orders.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(OrdersBtn,AnchorpaneHome);
 
     }
 
@@ -99,6 +133,7 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/supplier.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(SupplierBtn,AnchorpaneHome);
 
     }
 
@@ -107,6 +142,7 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/payment.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(PaymentBtn,AnchorpaneHome);
     }
 
     @FXML
@@ -114,6 +150,13 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/employee.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(EmployeeBtn,AnchorpaneHome);
+    }
+    public void ReportBtnClick(ActionEvent event) throws IOException {
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/report.fxml"));
+        AnchorpaneHome.getChildren().clear();
+        AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(ReportBtn,AnchorpaneHome);
     }
 
     private void Timenow(){
@@ -139,8 +182,12 @@ public class DashBordController {
         thread.start();
     }
 
-
-
+//  public void SetJobName() {
+//
+//      LoginController loginController = new LoginController();
+//
+//  }
+//
 
     @FXML
     void initialize() {
@@ -152,4 +199,6 @@ public class DashBordController {
 
 
     }
+
+
 }

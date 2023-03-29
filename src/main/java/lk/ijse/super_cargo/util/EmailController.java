@@ -1,4 +1,4 @@
-package lk.ijse.super_cargo.controller;
+package lk.ijse.super_cargo.util;
 
 import java.util.Properties;
 import javax.mail.Authenticator;

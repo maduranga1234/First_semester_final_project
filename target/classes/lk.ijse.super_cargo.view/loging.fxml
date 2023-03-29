@@ -29,7 +29,7 @@
       </ImageView>
       <AnchorPane fx:id="loginAnchorPane" layoutX="79.0" layoutY="93.0" opacity="0.59" prefHeight="271.0" prefWidth="497.0" styleClass="loginAnchorPane" stylesheets="@../Style.css">
          <children>
-            <ComboBox fx:id="logincombo" layoutX="34.0" layoutY="75.0" onAction="#comboboxLogingOnAction" prefHeight="25.0" prefWidth="189.0" promptText="Admin or Manager" styleClass="passwordTxt" stylesheets="@../Style.css" visibleRowCount="2" />
+            <ComboBox fx:id="logincombo" layoutX="34.0" layoutY="75.0" onAction="#comboboxLogingOnAction" prefHeight="25.0" prefWidth="189.0" promptText="Owner or Manager" styleClass="passwordTxt" stylesheets="@../Style.css" visibleRowCount="2" />
             <Label layoutX="60.0" layoutY="15.0" prefHeight="39.0" prefWidth="98.0" text="Login" textFill="WHITE">
                <font>
                   <Font name="Bell MT Italic" size="32.0" />

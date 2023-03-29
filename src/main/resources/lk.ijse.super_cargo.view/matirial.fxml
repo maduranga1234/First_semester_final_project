@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorpaneHome" opacity="0.8" prefHeight="608.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0; -fx-background-color: 42FF00;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.MatirialController">
+   <children>
+      <JFXTextField fx:id="MatirealIdText" focusColor="#0d4cdd" labelFloat="true" layoutX="56.0" layoutY="138.0" prefHeight="27.0" prefWidth="211.0" promptText="Material Id" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="16.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="MatirialNameText" focusColor="#0d4cdd" labelFloat="true" layoutX="370.0" layoutY="141.0" prefHeight="27.0" prefWidth="291.0" promptText="Material Name" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="MatirialWeighText" focusColor="#0d4cdd" labelFloat="true" layoutX="702.0" layoutY="141.0" prefHeight="27.0" prefWidth="291.0" promptText="Weight" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="MatirialPriceText" focusColor="#0d4cdd" labelFloat="true" layoutX="370.0" layoutY="250.0" prefHeight="27.0" prefWidth="291.0" promptText="Unit Price(Rs.)" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="MatirialQualityBox" layoutX="702.0" layoutY="251.0" onAction="#MatirialBoxOnAction" prefHeight="25.0" prefWidth="291.0" promptText="Quality" unFocusColor="#2eff13" />
+      <JFXButton fx:id="MatirialUpdateBtn" layoutX="803.0" layoutY="312.0" onAction="#MatirialUpdateClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: yellow; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Update">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="MatirialSaveBtn" layoutX="697.0" layoutY="312.0" onAction="#MatirialSaveClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #3AF900; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Save">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="MatirialDeleteBtn" layoutX="904.0" layoutY="312.0" onAction="#MatirialDeleteClick" prefHeight="25.0" prefWidth="94.0" style="-fx-background-radius: 15; -fx-background-color: #FF0E0E; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Delete">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+      </JFXButton>
+      <TableView fx:id="MatirialTbl" layoutX="14.0" layoutY="403.0" onMouseClicked="#MatirialOnMouseClicked" prefHeight="193.0" prefWidth="1002.0">
+        <columns>
+          <TableColumn fx:id="MatirialIdCol" prefWidth="153.0" text="Material Id" />
+          <TableColumn fx:id="MatirialNameCol" prefWidth="206.0" text="Material Name" />
+            <TableColumn fx:id="MatirialWeightCol" prefWidth="212.0" text="Weight" />
+            <TableColumn fx:id="MatirialPriceCol" prefWidth="203.0" text="Unit Price" />
+            <TableColumn fx:id="MatirialQualityCol" prefWidth="227.0" text="Quality" />
+        </columns>
+      </TableView>
+      <TextField fx:id="searchText" layoutX="805.0" layoutY="82.0" onKeyTyped="#MatirialIdSearchclick" prefHeight="27.0" prefWidth="193.0" promptText="Search" />
+      <ImageView fitHeight="25.0" fitWidth="24.0" layoutX="975.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.super_cargo.image/search.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="searchBtn" layoutX="970.0" layoutY="83.0" mnemonicParsing="false" onAction="#SearchClick" opacity="0.0" prefHeight="25.0" prefWidth="34.0" style="-fx-background-color: white;" />
+      <Label layoutX="346.0" layoutY="14.0" prefHeight="49.0" prefWidth="429.0" text="Material Details" textFill="#0ce430" underline="true">
+         <font>
+            <Font name="Bodoni MT Black Italic" size="39.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

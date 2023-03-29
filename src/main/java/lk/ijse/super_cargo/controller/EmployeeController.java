@@ -14,14 +14,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.super_cargo.dto.Employee;
 import lk.ijse.super_cargo.dto.tm.EmployeeTm;
 import lk.ijse.super_cargo.model.EmployeeModel;
+import lk.ijse.super_cargo.util.AlertController;
 import lombok.SneakyThrows;
 
 public class EmployeeController implements Initializable {
@@ -90,27 +91,40 @@ public class EmployeeController implements Initializable {
     private TableColumn<?, ?> JobColum;
 
 
+    @FXML
+    private TextField searchText;
+
+    @FXML
+    private Button searchBtn;
+
+
 
 
     @FXML
     void DeleteClick(ActionEvent event) throws SQLException {
 
         String empId=EmpIdText.getText();
+        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
+        if(result==true){
 
-     try {
-            boolean isDeleted = EmployeeModel.delete(empId);
-            if (isDeleted) {
-                new Alert(Alert.AlertType.CONFIRMATION, "Delete successFully").show();
+            try {
+                boolean isDeleted = EmployeeModel.delete(empId);
+                if (isDeleted) {
+                    AlertController.confirmmessage("Delete Successful");
 
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Error").show();
+                } else {
+                    AlertController.errormessage("Somethink went wrong");
+                }
+            }catch (SQLException throwables){
+                throwables.printStackTrace();
+                AlertController.errormessage("Somethink went wrong");
+
             }
-        }catch (SQLException throwables){
-         throwables.printStackTrace();
-         new Alert(Alert.AlertType.ERROR,"Error1").show();
 
-     }
-     setCellValueFactory();
+        }
+
+
+     //setCellValueFactory();
      getAll();
 
         EmpIdText.setText("");
@@ -120,6 +134,7 @@ public class EmployeeController implements Initializable {
         EmpAddressText.setText("");
         EmpContactText.setText("");
         EmpJopText.setText("");
+        searchText.setText("");
 
 
     }
@@ -140,15 +155,24 @@ public class EmployeeController implements Initializable {
         try {
             boolean isSaved= EmployeeModel.Save(employee);
             if(isSaved){
-                new Alert(Alert.AlertType.CONFIRMATION,"saved").show();
+                AlertController.confirmmessage("saved");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error").show();
+            AlertController.errormessage("Error");
 
         }
         getAll();
 
+
+        EmpIdText.setText("");
+        EmpNameText.setText("");
+        EmpNicText.setText("");
+        EmpDobText.setText("");
+        EmpAddressText.setText("");
+        EmpContactText.setText("");
+        EmpJopText.setText("");
+        searchText.setText("");
 
     }
 
@@ -166,20 +190,32 @@ public class EmployeeController implements Initializable {
         employee.setEmpJob(EmpJopText.getText());
 
 
-        try {
-            boolean isUpdates=EmployeeModel.update(employee);
-            if(isUpdates){
-                new Alert(Alert.AlertType.CONFIRMATION,"Comform").show();
 
-            }
-            else{
+        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
+        if(result==true){
 
-                new Alert(Alert.AlertType.ERROR,"Error").show();
+            try {
+                boolean isUpdates=EmployeeModel.update(employee);
+                if(isUpdates){
+                    AlertController.confirmmessage("Update Ok");
+
+                }
+                else{
+
+                    AlertController.errormessage("Error");
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                AlertController.errormessage("Error");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"ErrorA");
+
+
         }
+
+
+
+
+
         setCellValueFactory();
         getAll();
 
@@ -190,6 +226,7 @@ public class EmployeeController implements Initializable {
         EmpAddressText.setText("");
         EmpContactText.setText("");
         EmpJopText.setText("");
+        searchText.setText("");
 
     }
 
@@ -209,21 +246,9 @@ public class EmployeeController implements Initializable {
 
    private void getAll() throws SQLException {
        try {
-           ObservableList<EmployeeTm> observableList = FXCollections.observableArrayList();
-           List<Employee> allData = EmployeeModel.getAll();
 
-           for (Employee employee : allData) {
-               observableList.add(new EmployeeTm(
-                       employee.getEmpId(),
-                       employee.getEmpName(),
-                       employee.getEmpNic(),
-                       employee.getEmpDob(),
-                       employee.getEmpAddress(),
-                       employee.getEmpContact(),
-                       employee.getEmpJob()
-               ));
-           }
-           EmployeeTbl.setItems(observableList);
+            ObservableList<EmployeeTm> employeeData =EmployeeModel.getAll();
+            EmployeeTbl.setItems(employeeData);
 
        }catch (SQLException throwables){
            throwables.printStackTrace();
@@ -233,7 +258,7 @@ public class EmployeeController implements Initializable {
     @FXML
     void empIdSeachOnAction(ActionEvent event) {
 
-        String empId=EmpIdText.getText();
+        String empId=searchText.getText();
 
         try {
             Employee employee = EmployeeModel.Search(empId);
@@ -245,62 +270,85 @@ public class EmployeeController implements Initializable {
             EmpContactText.setText(employee.getEmpContact());
             EmpJopText.setText(employee.getEmpJob());
 
-            String searchValue = EmpIdText.getText().trim();
+//            String searchValue = EmpIdText.getText().trim();
             ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
-
-            List<Employee> allData = EmployeeModel.getAll();
-
-            for (Employee employe : allData) {
-                obList.add(new EmployeeTm(
-                        employe.getEmpId(),
-                        employe.getEmpName(),
-                        employe.getEmpNic(),
-                        employe.getEmpDob(),
-                        employe.getEmpAddress(),
-                        employe.getEmpContact(),
-                        employe.getEmpJob()
-                ));
-            }
-            if (!searchValue.isEmpty()) {
-                ObservableList<EmployeeTm> filteredData = obList.filtered(new Predicate<EmployeeTm>(){
-                    @Override
-                    public boolean test(EmployeeTm employeetm) {
-                        return String.valueOf(employeetm.getEmpId()).toLowerCase().contains(searchValue.toLowerCase());        }
-                });
-                EmployeeTbl.setItems(filteredData);} else {
-                EmployeeTbl.setItems(obList);
-            }
-
         }catch (SQLException throwables){
             throwables.printStackTrace();
-            new Alert(Alert.AlertType.ERROR,"Error");
+            AlertController.errormessage("Error");
         }
 
 
     }
 
-    @FXML
-    void initialize() {
-        assert AnchorpaneHome != null : "fx:id=\"AnchorpaneHome\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpUpdateBtn != null : "fx:id=\"EmpUpdateBtn\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpSaveBtn != null : "fx:id=\"EmpSaveBtn\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpDeleteBtn != null : "fx:id=\"EmpDeleteBtn\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpNameText != null : "fx:id=\"EmpNameText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpAddressText != null : "fx:id=\"EmpAddressText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpNicText != null : "fx:id=\"EmpNicText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpDobText != null : "fx:id=\"EmpDobText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpContactText != null : "fx:id=\"EmpContactText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpJopText != null : "fx:id=\"EmpJopText\" was not injected: check your FXML file 'employee.fxml'.";
-        assert EmpIdText != null : "fx:id=\"EmpIdText\" was not injected: check your FXML file 'employee.fxml'.";
-
-    }
+//    @FXML
+//    void initialize() {
+//        assert AnchorpaneHome != null : "fx:id=\"AnchorpaneHome\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpUpdateBtn != null : "fx:id=\"EmpUpdateBtn\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpSaveBtn != null : "fx:id=\"EmpSaveBtn\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpDeleteBtn != null : "fx:id=\"EmpDeleteBtn\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpNameText != null : "fx:id=\"EmpNameText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpAddressText != null : "fx:id=\"EmpAddressText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpNicText != null : "fx:id=\"EmpNicText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpDobText != null : "fx:id=\"EmpDobText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpContactText != null : "fx:id=\"EmpContactText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpJopText != null : "fx:id=\"EmpJopText\" was not injected: check your FXML file 'employee.fxml'.";
+//        assert EmpIdText != null : "fx:id=\"EmpIdText\" was not injected: check your FXML file 'employee.fxml'.";
+//
+//
+//
+//
+//    }
 
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        EmpIdText.setText(null);
+        EmpNameText.setText(null);
+        EmpNicText.setText(null);
+        EmpDobText.setText(null);
+        EmpAddressText.setText(null);
+        EmpContactText.setText(null);
+        EmpJopText.setText(null);
+        searchText.setText(null);
+
         setCellValueFactory();
         getAll();
+
+    }
+
+    public void EmployeeOnMouseClick(MouseEvent mouseEvent) {
+
+        TablePosition pos=EmployeeTbl.getSelectionModel().getSelectedCells().get(0);
+        int row=pos.getRow();
+
+        ObservableList<TableColumn<EmployeeTm,?>> columns=EmployeeTbl.getColumns();
+
+        EmpIdText.setText(columns.get(0).getCellData(row).toString());
+        EmpNameText.setText(columns.get(1).getCellData(row).toString());
+        EmpNicText.setText(columns.get(2).getCellData(row).toString());
+        EmpDobText.setText(columns.get(3).getCellData(row).toString());
+        EmpAddressText.setText(columns.get(4).getCellData(row).toString());
+        EmpContactText.setText(columns.get(5).getCellData(row).toString());
+        EmpJopText.setText(columns.get(6).getCellData(row).toString());
+
+    }
+
+    public void searchTextOnKeyTyped(KeyEvent keyEvent) throws SQLException {
+        String searchValue=searchText.getText().trim();
+        ObservableList<EmployeeTm>obList=EmployeeModel.getAll();
+
+        if (!searchValue.isEmpty()) {
+            ObservableList<EmployeeTm> filteredData = obList.filtered(new Predicate<EmployeeTm>(){
+                @Override
+                public boolean test(EmployeeTm employeetm) {
+                    return String.valueOf(employeetm.getEmpId()).toLowerCase().contains(searchValue.toLowerCase());        }
+            });
+            EmployeeTbl.setItems(filteredData);} else {
+            EmployeeTbl.setItems(obList);
+        }
+
+
 
     }
 }

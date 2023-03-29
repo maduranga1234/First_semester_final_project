@@ -69,7 +69,8 @@ public class SignUpController {
         String ComPassword=ComPasswordText.getText();
         String Job= (String) JobCombo.getValue();
 
-      if(password.equals(ComPassword) && Job.equals("Owner")) {
+
+      if(password.equals(ComPassword) && Job.equals("Owner")  ) {
 
             User user = new User();
 
@@ -78,7 +79,6 @@ public class SignUpController {
             user.setEmployeeId(IdText.getText());
             user.setJobTitel((String) JobCombo.getValue());
             user.setPassword(Passwordtext.getText());
-            user.setComformPassword(ComPasswordText.getText());
 
             try {
                 boolean isSingUp = UserModel.SingUp(user);
@@ -93,7 +93,7 @@ public class SignUpController {
 
 
 
-          Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
+          Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/loging.fxml"));
           stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
           scene = new Scene(root);
           stage.setScene(scene);
@@ -113,7 +113,6 @@ public class SignUpController {
           user.setEmployeeId(IdText.getText());
           user.setJobTitel((String) JobCombo.getValue());
           user.setPassword(Passwordtext.getText());
-          user.setComformPassword(ComPasswordText.getText());
 
           try {
               boolean isSingUp = UserModel.SingUp(user);
@@ -126,15 +125,12 @@ public class SignUpController {
               new Alert(Alert.AlertType.ERROR, "Error").show();
           }
 
-
-
-          Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
+          Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/loging.fxml"));
           stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
           scene = new Scene(root);
           stage.setScene(scene);
           stage.centerOnScreen();
           stage.show();
-
       }
     }
 

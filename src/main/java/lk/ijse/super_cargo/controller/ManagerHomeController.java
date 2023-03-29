@@ -12,9 +12,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import lk.ijse.super_cargo.util.ButtonColourController;
 
 public class ManagerHomeController {
 
@@ -46,10 +51,33 @@ public class ManagerHomeController {
     private JFXButton HomeManagerBtn;
 
     @FXML
+    private JFXButton MatirialBtn;
+
+
+    @FXML
     private Label lblTime;
 
     @FXML
     private Label lblDate;
+
+    @FXML
+    private Hyperlink LogOutLink;
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    @FXML
+    void LogOutClick(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/loging.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.show();
+
+    }
 
 
     @FXML
@@ -58,6 +86,7 @@ public class ManagerHomeController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
         AnchorpaneHome.getChildren().clear();
         ManagerHomeAnchor.getChildren().add(load);
+        ButtonColourController.btncolor(HomeManagerBtn,AnchorpaneHome);
 
 
     }
@@ -68,6 +97,7 @@ public class ManagerHomeController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/orders.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(OrdersManagerBtn,AnchorpaneHome);
 
     }
 
@@ -77,6 +107,7 @@ public class ManagerHomeController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/payment.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(PaymentManagerBtn,AnchorpaneHome);
 
     }
 
@@ -85,14 +116,26 @@ public class ManagerHomeController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/buyer.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(StockManagerBtn,AnchorpaneHome);
 
     }
 
     @FXML
     void exportManagerBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/export.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/item.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(exportBtnManager,AnchorpaneHome);
+
+    }
+
+    public void MatirialBtnClick(ActionEvent event) throws IOException {
+
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/matirial.fxml"));
+        AnchorpaneHome.getChildren().clear();
+        AnchorpaneHome.getChildren().add(load);
+        ButtonColourController.btncolor(MatirialBtn,AnchorpaneHome);
+
 
     }
     private void Timenow(){
@@ -127,4 +170,6 @@ public class ManagerHomeController {
         assert StockManagerBtn != null : "fx:id=\"StockManagerBtn\" was not injected: check your FXML file 'managerHomePage.fxml'.";
         Timenow();
     }
+
+
 }

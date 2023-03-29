@@ -11,11 +11,10 @@ import lombok.*;
 public class User {
 
     private String userName;
+    private String employeeId;
     private String password;
     private String email;
     private String jobTitel;
-    private String employeeId;
-    private String comformPassword;
 
 
 }
