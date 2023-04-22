@@ -6,6 +6,7 @@ import java.util.List;
 import lk.ijse.super_cargo.db.DBConnection;
 import lk.ijse.super_cargo.dto.Employee;
 import lk.ijse.super_cargo.dto.User;
+import lk.ijse.super_cargo.util.CrudUtil;
 
 import java.util.Properties;
 
@@ -50,27 +51,34 @@ public class UserModel {
 
 
 
-    public static User LogingAction(User logingCont) throws SQLException {
-        User logingCheck=new User();
-
-        String sql="SELECT userName,password,jobTitel FROM user WHERE userName=?";
-
-        ResultSet resultSet;
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-
-            pstm.setString(1, logingCont.getUserName());
-
-            resultSet = pstm.executeQuery();
-            if(resultSet.next()){
-                logingCheck.setUserName(resultSet.getString(1));
-                logingCheck.setPassword(resultSet.getString(2));
-                logingCheck.setJobTitel(resultSet.getString(3));
-                System.out.println(logingCheck.getUserName());
-                System.out.println(logingCheck.getPassword());
-                System.out.println(logingCheck.getJobTitel());
-            }
-            return logingCheck;
+    public static boolean LogingAction(User logingCont) throws SQLException {
+        ResultSet execute = CrudUtil.execute("SELECT * From user WHERE userName=? AND password =? AND jobTitel=?", logingCont.getUserName(), logingCont.getPassword(),logingCont.getJobTitel());
+        if (execute.next()){
+            return true;
+        }else {
+            return false;
         }
+
+//        User logingCheck=new User();
+//
+//        String sql="SELECT userName,password,jobTitel FROM user WHERE userName=?";
+//
+//        ResultSet resultSet;
+//        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
+//
+//            pstm.setString(1, logingCont.getUserName());
+//
+//            resultSet = pstm.executeQuery();
+//            if(resultSet.next()){
+//                logingCheck.setUserName(resultSet.getString(1));
+//                logingCheck.setPassword(resultSet.getString(2));
+//                logingCheck.setJobTitel(resultSet.getString(3));
+//                System.out.println(logingCheck.getUserName());
+//                System.out.println(logingCheck.getPassword());
+//                System.out.println(logingCheck.getJobTitel());
+//            }
+//            return logingCheck;
+//        }
 
     }
 
@@ -94,5 +102,20 @@ public class UserModel {
         }
         return null;
 
+    }
+
+
+    public static List<String> LoadUserNames() throws SQLException {
+
+        String sql = "SELECT userName FROM user";
+        List<String> allItemData = new ArrayList<>();
+
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()) {
+            allItemData.add(resultSet.getString(1));
+
+
+        }
+        return allItemData;
     }
 }

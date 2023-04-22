@@ -1,11 +1,9 @@
 package lk.ijse.super_cargo.controller;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -14,34 +12,35 @@ import com.jfoenix.controls.JFXPasswordField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import lk.ijse.super_cargo.dto.User;
 import lk.ijse.super_cargo.model.UserModel;
+import lk.ijse.super_cargo.util.AlertController;
 import lk.ijse.super_cargo.util.ButtonColourController;
+import lk.ijse.super_cargo.util.Navigation;
 
 public class LoginController {
 
     @FXML
-    private ResourceBundle resources;
+    public ResourceBundle resources;
 
 
     @FXML
-    private AnchorPane loginAncPane;
+    public AnchorPane loginAncPane;
     @FXML
     private JFXButton btn1;
 
-    @FXML
-    private Label loginlbl;
+
 
     @FXML
     private ComboBox logincombo;
@@ -53,25 +52,27 @@ public class LoginController {
     private TextField userNameTxt;
 
     @FXML
-    private TextField passwordTxt;
+    public Hyperlink SingUpClick;
 
     @FXML
-    private Label SignUpBtn;
+    public Hyperlink Goodleicon;
 
     @FXML
-    private Hyperlink SingUpClick;
+    public Hyperlink Facebookicon;
 
     @FXML
-    private Hyperlink Goodleicon;
-
-    @FXML
-    private Hyperlink Facebookicon;
-
-    @FXML
-    private Hyperlink ForgotPasswordBtn;
+    public Hyperlink ForgotPasswordBtn;
     @FXML
     private JFXPasswordField PasswordText;
 
+    @FXML
+    private Group visibleGroup;
+
+    @FXML
+    private TextField visibleText;
+
+    @FXML
+    private Group passwordGroup;
 
 
 
@@ -87,51 +88,104 @@ public class LoginController {
     private Scene scene;
     private Parent root;
 
-    User logingCont=new User();
+    User user =new User();
 
     @FXML
     void comboboxLogingOnAction(ActionEvent event){
-        logingCont.setJobTitel((String) logincombo.getValue());
+        user.setJobTitel((String) logincombo.getValue());
     }
 
     public void LoginOnAction(ActionEvent event) throws IOException {
 
         ButtonColourController.btncolor(btn1,loginAnchorPane);
 
-        logingCont.setUserName(userNameTxt.getText());
-        logingCont.setPassword(PasswordText.getText());
-
+        user.setUserName(userNameTxt.getText());
+        user.setPassword(PasswordText.getText());
+        user.setJobTitel(String.valueOf(logincombo.getValue()));
         try {
-            User user= UserModel.LogingAction(logingCont);
-            String userName=user.getUserName();
-            String password=user.getPassword();
-            String jobTitel=user.getJobTitel();
 
-            if(userName.equals(logingCont.getUserName()) && password.equals(logingCont.getPassword()) && jobTitel.equals(logingCont.getJobTitel()) && jobTitel.equals("Owner")){
-                Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.show();
+            if(logincombo.getSelectionModel().getSelectedIndex() == -1 || userNameTxt.getText().isEmpty() || PasswordText.getText().isEmpty()){
+                new Alert(Alert.AlertType.ERROR,"invalid Owner login details").show();
+
+
             }
-            else if(userName.equals(logingCont.getUserName()) && password.equals(logingCont.getPassword()) && jobTitel.equals(logingCont.getJobTitel()) && jobTitel.equals("Manager")){
-                Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
-                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.show();
+            else{
+                if (logincombo.getValue().equals("Owner")){
+                    if (UserModel.LogingAction(user)){
+                        AlertController.animationMesseage("lk.ijse.super_cargo.image/tick.gif", "Loging ","Loging Successful");
+                        Navigation.swishNavigation(event,"dashBord.fxml");
+//                   Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
+//                   stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                   scene = new Scene(root);
+//                   stage.setScene(scene);
+//                   stage.centerOnScreen();
+//                   stage.show();
+                    }
+                }
+                if (logincombo.getValue().equals("Manager")){
+                    if (UserModel.LogingAction(user)){
+                        AlertController.animationMesseage("lk.ijse.super_cargo.image/tick.gif", "Loging ","Loging Successful");
+                        Navigation.swishNavigation(event,"managerHomePage.fxml");
+                    }
+//
+//               Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.centerOnScreen();
+//                stage.show();
+                }
+
+                if (!UserModel.LogingAction(user)){
+                    new Alert(Alert.AlertType.ERROR,"invalid Owner login details").show();
 
 
-            }else{
-                new Alert(Alert.AlertType.ERROR,"invalid login details").show();
+                }
             }
-
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+
+//        try {
+//            User user= UserModel.LogingAction(logingCont);
+//            String userName=user.getUserName();
+//            String password=user.getPassword();
+//            String jobTitel=user.getJobTitel();
+//
+//            if(userName.equals(logingCont.getUserName()) && password.equals(logingCont.getPassword()) && jobTitel.equals(logingCont.getJobTitel()) && jobTitel.equals("Owner")){
+//                AlertController.animationMesseage("lk.ijse.super_cargo.image/tick.gif", "Loging ","Loging Successful");
+//                Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.centerOnScreen();
+//                stage.show();
+//            }
+//            else if(userName.equals(logingCont.getUserName()) && password.equals(logingCont.getPassword()) && jobTitel.equals(logingCont.getJobTitel()) && jobTitel.equals("Manager")){
+//                AlertController.animationMesseage("lk.ijse.super_cargo.image/tick.gif", "Loging ","Loging Successful");
+//                Parent root = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
+//                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                stage.centerOnScreen();
+//                stage.show();
+//
+//
+//            }else{
+//                new Alert(Alert.AlertType.ERROR,"invalid login details").show();
+//                PasswordText.setStyle("-fx-background-color:#ff3131");
+//                userNameTxt.setStyle("-fx-background-color:#ff2d2d");
+//                logincombo.setStyle("-fx-background-color:#ff2c2c");
+//                passwordTxt.setStyle("-fx-background-radius:16");
+//                AlertController.animationMesseage("lk.ijse.super_cargo.image/wrongicon.png", "Loging ","Loging Unsuccessful");
+//            }
+//
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
 
 
     }
@@ -178,6 +232,22 @@ public class LoginController {
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
+
+
+    }
+
+    public void visableMouse(MouseEvent mouseEvent) {
+        visibleGroup.setVisible(false);
+        passwordGroup.setVisible(true);
+
+
+    }
+
+    public void disableMouse(MouseEvent mouseEvent) {
+
+        visibleGroup.setVisible(true);
+        visibleText.setText(PasswordText.getText());
+        passwordGroup.setVisible(false);
 
 
     }

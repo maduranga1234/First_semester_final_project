@@ -2,12 +2,11 @@ package lk.ijse.super_cargo.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lk.ijse.super_cargo.db.DBConnection;
-import lk.ijse.super_cargo.dto.Item;
-import lk.ijse.super_cargo.dto.Supplier;
+import javafx.scene.chart.XYChart;
+import lk.ijse.super_cargo.dto.*;
 import lk.ijse.super_cargo.dto.tm.ItemTm;
+import lk.ijse.super_cargo.util.CrudUtil;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,78 +15,64 @@ import java.util.List;
 public class ItemModel {
 
 
-
     public static boolean Save(Item item) throws SQLException {
-        String sql="INSERT INTO item(itemId,itemName,weight,unitPrice,quality)" +
+        String sql = "INSERT INTO item(itemId,itemName,weight,unitPrice,quality)" +
                 "VALUES (?,?,?,?,?)";
 
-        PreparedStatement pstm= DBConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1,item.getItemId());
-        pstm.setString(2,item.getItemName());
-        pstm.setDouble(3,item.getWeight());
-        pstm.setDouble(4,item.getUnitPrice());
-        pstm.setString(5,item.getQuality());
-
-        int affecteRows=pstm.executeUpdate();
-        return affecteRows > 0;
-
+        return CrudUtil.execute(
+                sql,
+                item.getItemId(),
+                item.getItemName(),
+                item.getWeight(),
+                item.getUnitPrice(),
+                item.getQuality()
+        );
     }
 
     public static Item Search(String itemId) throws SQLException {
         String sql = "SELECT * FROM item WHERE itemId=?";
 
-        ResultSet resultSet;
+        ResultSet resultSet = CrudUtil.execute(sql, itemId);
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, itemId);
+        if (resultSet.next()) {
+            return (new Item(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getDouble(4),
+                    resultSet.getString(5)
+            ));
 
-            resultSet = pstm.executeQuery();
+        }
+        return null;
 
 
-            if (resultSet.next()) {
-                return new Item(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getDouble(3),
-                        resultSet.getDouble(4),
-                        resultSet.getString(5)
-                );
-
-            }
-
-        }return null;
     }
 
 
     public static boolean Update(Item item) throws SQLException {
-        String sql="UPDATE item SET itemName=?,weight=?,unitPrice=?,quality=?" +
+        String sql = "UPDATE item SET itemName=?,weight=?,unitPrice=?,quality=?" +
                 "WHERE itemId=?";
 
-        int affecteRows;
+        return CrudUtil.execute(
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, item.getItemName());
-            pstm.setDouble(2, item.getWeight());
-            pstm.setDouble(3, item.getUnitPrice());
-            pstm.setString(4,  item.getQuality());
-            pstm.setString(5, item.getItemId());
+                sql,
+                item.getItemName(),
+                item.getWeight(),
+                item.getUnitPrice(),
+                item.getQuality(),
+                item.getItemId());
 
-            affecteRows=pstm.executeUpdate();
-
-            return  affecteRows > 0;
-        }
     }
 
 
     public static boolean delete(String itemId) throws SQLException {
-        String sql="DELETE FROM item WHERE itemId=?";
+        String sql = "DELETE FROM item WHERE itemId=?";
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, itemId);
-
-            int affectRows=pstm.executeUpdate();
-            return affectRows > 0;
-        }
+        return CrudUtil.execute(
+                sql,
+                itemId
+        );
 
     }
 
@@ -96,29 +81,124 @@ public class ItemModel {
 
         String sql = "SELECT * FROM item";
 
+        ObservableList<ItemTm> obList = FXCollections.observableArrayList();
 
-        ResultSet resultSet;
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            resultSet=pstm.executeQuery();
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()) {
 
-
-            ObservableList<ItemTm>itemData= FXCollections.observableArrayList();
-
-            while (resultSet.next()) {
-
-                     itemData.add(new ItemTm(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getDouble(3),
-                        resultSet.getDouble(4),
-                        resultSet.getString(5)
-
-                ));
-
-            } return itemData;
+            obList.add(new ItemTm(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getDouble(4),
+                    resultSet.getString(5)
+            ));
 
         }
+        return obList;
     }
+
+    public static List<String> LoadItemCodes() throws SQLException {
+
+        String sql = "SELECT itemId FROM item";
+        List<String> allItemData = new ArrayList<>();
+
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()) {
+            allItemData.add(resultSet.getString(1));
+
+
+        }
+        return allItemData;
+    }
+
+
+    public static Item searchByItemCode(String id) throws SQLException {
+        String sql = "SELECT * FROM item WHERE itemId=?";
+        ResultSet resultSet = CrudUtil.execute(sql, id);
+
+        if (resultSet.next()) {
+            return new Item(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getDouble(3),
+                    resultSet.getDouble(4),
+                    resultSet.getString(5)
+
+            );
+        }
+        return null;
+    }
+
+    public static boolean updateQty(List<Order> placeOrderList) throws SQLException {
+
+        for (Order order : placeOrderList) {
+            if (!updateQty(order)) {
+
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    private static boolean updateQty(Order order) throws SQLException {
+        String sql = "UPDATE item SET weight=(weight-?)WHERE itemId=?";
+
+        return CrudUtil.execute(
+                sql,
+                order.getQuantity(),
+                order.getItemId()
+        );
+    }
+
+
+    public static boolean updateItem(List<SupplierOrderDetail> supplierOrderList) throws SQLException {
+
+        for (SupplierOrderDetail supplierOrderDetail : supplierOrderList) {
+            if (!updateItem1(supplierOrderDetail)) {
+
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    private static boolean updateItem1(SupplierOrderDetail supplierOrderDetail) throws SQLException {
+        String sql = "UPDATE item SET weight=(weight+?)WHERE itemId=?";
+
+        return CrudUtil.execute(
+                sql,
+                supplierOrderDetail.getQnt(),
+                supplierOrderDetail.getItemId()
+        );
+
+    }
+
+
+
+
+    public static ObservableList<XYChart.Series<String, Double>> getDataToBarChart() throws SQLException {
+        String sql="SELECT itemName,weight FROM item WHERE weight<=10 ";
+
+        ObservableList<XYChart.Series<String, Double>> datalist =FXCollections.observableArrayList();
+        ResultSet resultSet = CrudUtil.execute(sql);
+
+        // Creating a new series object
+        XYChart.Series<String, Double> series = new XYChart.Series<>();
+
+        while(resultSet.next()){
+            String itemName = resultSet.getString("itemName");
+            Double weight = Double.valueOf(resultSet.getInt("weight"));
+            series.getData().add(new XYChart.Data<>(itemName, weight));
+        }
+
+        datalist.add(series);
+        return datalist;
+}
+
+
 }
 
 

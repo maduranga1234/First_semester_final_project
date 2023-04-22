@@ -2,8 +2,11 @@ package lk.ijse.super_cargo.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -19,11 +22,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.super_cargo.db.DBConnection;
 import lk.ijse.super_cargo.dto.Employee;
 import lk.ijse.super_cargo.dto.tm.EmployeeTm;
 import lk.ijse.super_cargo.model.EmployeeModel;
 import lk.ijse.super_cargo.util.AlertController;
+import lk.ijse.super_cargo.util.ValidationController;
 import lombok.SneakyThrows;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class EmployeeController implements Initializable {
 
@@ -124,7 +134,6 @@ public class EmployeeController implements Initializable {
         }
 
 
-     //setCellValueFactory();
      getAll();
 
         EmpIdText.setText("");
@@ -142,92 +151,148 @@ public class EmployeeController implements Initializable {
     @FXML
     void SaveClick(ActionEvent event) throws SQLException {
 
-        Employee employee=new Employee();
+        if(ValidationController.employeeIdCheck(EmpIdText.getText())) {
+            if (ValidationController.customerNameValidate(EmpNameText.getText())) {
+                if (ValidationController.customerNameValidate(EmpAddressText.getText())) {
+                    if (ValidationController.Nic(EmpNicText.getText())) {
+                        if (ValidationController.DateOfBirth(EmpDobText.getText())) {
+                            if (ValidationController.BuyercontactCheck(EmpContactText.getText())) {
+                                if (ValidationController.customerNameValidate(EmpJopText.getText())) {
 
-        employee.setEmpId(EmpIdText.getText());
-        employee.setEmpName(EmpNameText.getText());
-        employee.setEmpAddress(EmpAddressText.getText());
-        employee.setEmpNic(EmpNicText.getText());
-        employee.setEmpDob(EmpDobText.getText());
-        employee.setEmpContact(EmpContactText.getText());
-        employee.setEmpJob(EmpJopText.getText());
 
-        try {
-            boolean isSaved= EmployeeModel.Save(employee);
-            if(isSaved){
-                AlertController.confirmmessage("saved");
+                                    Employee employee = new Employee();
+
+                                    employee.setEmpId(EmpIdText.getText());
+                                    employee.setEmpName(EmpNameText.getText());
+                                    employee.setEmpAddress(EmpAddressText.getText());
+                                    employee.setEmpNic(EmpNicText.getText());
+                                    employee.setEmpDob(EmpDobText.getText());
+                                    employee.setEmpContact(EmpContactText.getText());
+                                    employee.setEmpJob(EmpJopText.getText());
+
+                                    try {
+                                        boolean isSaved = EmployeeModel.Save(employee);
+                                        if (isSaved) {
+                                            AlertController.confirmmessage("saved");
+                                        }
+                                    } catch (SQLIntegrityConstraintViolationException throwables) {
+
+                                        AlertController.errormessage("Duplicate Id");
+
+                                    } catch (Exception throwables) {
+
+                                        AlertController.errormessage("Error");
+
+                                    }
+                                    getAll();
+
+
+                                    EmpIdText.setText("");
+                                    EmpNameText.setText("");
+                                    EmpNicText.setText("");
+                                    EmpDobText.setText("");
+                                    EmpAddressText.setText("");
+                                    EmpContactText.setText("");
+                                    EmpJopText.setText("");
+                                    searchText.setText("");
+                                }else{
+                                    AlertController.errormessage("invalied Job Titel");
+                                }
+                            }else{
+                                AlertController.errormessage("invalied COntact Number");
+                            }
+                        }else{
+                            AlertController.errormessage("invalied Date Of Birth");
+                        }
+                    }else{
+                        AlertController.errormessage("invalied Nic");
+                    }
+                }else{
+                    AlertController.errormessage("invalied Address");
+                }
+            }else{
+                AlertController.errormessage("invalied Name");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            AlertController.errormessage("Error");
-
+        }else{
+            AlertController.errormessage("invalied Id");
         }
-        getAll();
-
-
-        EmpIdText.setText("");
-        EmpNameText.setText("");
-        EmpNicText.setText("");
-        EmpDobText.setText("");
-        EmpAddressText.setText("");
-        EmpContactText.setText("");
-        EmpJopText.setText("");
-        searchText.setText("");
-
     }
 
     @FXML
     void UpdateClick(ActionEvent event) throws SQLException {
 
-        Employee employee=new Employee();
+        if(ValidationController.employeeIdCheck(EmpIdText.getText())) {
+            if (ValidationController.customerNameValidate(EmpNameText.getText())) {
+                if (ValidationController.customerNameValidate(EmpAddressText.getText())) {
+                    if (ValidationController.Nic(EmpNicText.getText())) {
+                        if (ValidationController.DateOfBirth(EmpDobText.getText())) {
+                            if (ValidationController.BuyercontactCheck(EmpContactText.getText())) {
+                                if (ValidationController.customerNameValidate(EmpJopText.getText())) {
 
-        employee.setEmpId(EmpIdText.getText());
-        employee.setEmpName(EmpNameText.getText());
-        employee.setEmpNic(EmpNicText.getText());
-        employee.setEmpDob(EmpDobText.getText());
-        employee.setEmpAddress(EmpAddressText.getText());
-        employee.setEmpContact(EmpContactText.getText());
-        employee.setEmpJob(EmpJopText.getText());
+            Employee employee = new Employee();
+
+            employee.setEmpId(EmpIdText.getText());
+            employee.setEmpName(EmpNameText.getText());
+            employee.setEmpNic(EmpNicText.getText());
+            employee.setEmpDob(EmpDobText.getText());
+            employee.setEmpAddress(EmpAddressText.getText());
+            employee.setEmpContact(EmpContactText.getText());
+            employee.setEmpJob(EmpJopText.getText());
 
 
+            boolean result = AlertController.okconfirmmessage("Are you sure you want to Update this employee?");
+            if (result == true) {
 
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
-        if(result==true){
+                try {
+                    boolean isUpdates = EmployeeModel.update(employee);
+                    if (isUpdates) {
+                        AlertController.confirmmessage("Update Ok");
 
-            try {
-                boolean isUpdates=EmployeeModel.update(employee);
-                if(isUpdates){
-                    AlertController.confirmmessage("Update Ok");
+                    } else {
 
-                }
-                else{
-
+                        AlertController.errormessage("Error!!");
+                    }
+                } catch (SQLException e) {
+                    System.out.println(e);
                     AlertController.errormessage("Error");
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                AlertController.errormessage("Error");
+
+
             }
 
+            setCellValueFactory();
+            getAll();
 
+            EmpIdText.setText("");
+            EmpNameText.setText("");
+            EmpNicText.setText("");
+            EmpDobText.setText("");
+            EmpAddressText.setText("");
+            EmpContactText.setText("");
+            EmpJopText.setText("");
+            searchText.setText("");
+
+                                }else{
+                                    AlertController.errormessage("invalied Job Titel");
+                                }
+                            }else{
+                                AlertController.errormessage("invalied COntact Number");
+                            }
+                        }else{
+                            AlertController.errormessage("invalied Date Of Birth");
+                        }
+                    }else{
+                        AlertController.errormessage("invalied Nic");
+                    }
+                }else{
+                    AlertController.errormessage("invalied Address");
+                }
+            }else{
+                AlertController.errormessage("invalied Name");
+            }
+        }else{
+            AlertController.errormessage("invalied Id");
         }
-
-
-
-
-
-        setCellValueFactory();
-        getAll();
-
-        EmpIdText.setText("");
-        EmpNameText.setText("");
-        EmpNicText.setText("");
-        EmpDobText.setText("");
-        EmpAddressText.setText("");
-        EmpContactText.setText("");
-        EmpJopText.setText("");
-        searchText.setText("");
-
     }
 
 

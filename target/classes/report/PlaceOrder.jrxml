@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlaceOrder" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02c2913e-be66-4f97-958d-130b3dc85e88">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<parameter name="param1" class="java.lang.String"/>
+	<parameter name="param2" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select item.itemName,item.unitPrice,ordersdetail.weight,(item.unitPrice*ordersdetail.weight) AS value,orders.payment FROM ordersdetail INNER JOIN orders ON ordersdetail.orderId=orders.orderId INNER JOIN item ON item.itemId=ordersdetail.itemId WHERE orders.orderId=(select max(orders.orderId ) FROM orders) ORDER BY ordersdetail.orderId desc]]>
+	</queryString>
+	<field name="itemName" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="itemName"/>
+		<property name="com.jaspersoft.studio.field.label" value="itemName"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="unitPrice" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="unitPrice"/>
+		<property name="com.jaspersoft.studio.field.label" value="unitPrice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="item"/>
+	</field>
+	<field name="weight" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="weight"/>
+		<property name="com.jaspersoft.studio.field.label" value="weight"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ordersdetail"/>
+	</field>
+	<field name="value" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="value"/>
+		<property name="com.jaspersoft.studio.field.label" value="value"/>
+	</field>
+	<field name="payment" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="orders"/>
+	</field>
+	<group name="itemName">
+		<groupExpression><![CDATA[$F{itemName}]]></groupExpression>
+	</group>
+	<group name="unitPrice">
+		<groupExpression><![CDATA[$F{unitPrice}]]></groupExpression>
+	</group>
+	<group name="weight">
+		<groupExpression><![CDATA[$F{weight}]]></groupExpression>
+	</group>
+	<group name="value">
+		<groupExpression><![CDATA[$F{value}]]></groupExpression>
+	</group>
+	<group name="payment">
+		<groupExpression><![CDATA[$F{payment}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="170" splitType="Stretch">
+			<staticText>
+				<reportElement x="190" y="10" width="183" height="30" uuid="3e5459c9-e722-48c8-a51b-d955df702f77"/>
+				<textElement>
+					<font fontName="Britannic Bold" size="24"/>
+				</textElement>
+				<text><![CDATA[Eastern & Allied]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="30" width="80" height="30" uuid="aca99f09-a33c-4a16-ac88-08299314854e"/>
+				<textElement>
+					<font fontName="Cooper Black" size="16"/>
+				</textElement>
+				<text><![CDATA[(pvt) ltd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="50" width="390" height="30" uuid="3094ec28-108e-42c9-894c-29cb98ee7786"/>
+				<textElement>
+					<font fontName="Century" size="14"/>
+				</textElement>
+				<text><![CDATA[126,Wijaya Kumarathunga Mawatha,Colombo 5,Sri lanka.]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="60" y="110" width="190" height="30" uuid="9064ee55-60e1-4b05-9e5e-64b33f2a0b19"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="60" y="145" width="80" height="25" uuid="5cafb394-68c9-4152-8704-ef607a6e0d20"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="110" width="60" height="30" uuid="b3361043-ea79-4ee1-8056-8f305d81a41e"/>
+				<textElement>
+					<font fontName="Bodoni MT Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Date  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="145" width="60" height="25" uuid="5b08ac0b-90ae-46ca-a35d-8461271697e0"/>
+				<textElement>
+					<font fontName="Bodoni MT Black" size="16"/>
+				</textElement>
+				<text><![CDATA[Time :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="10" width="100" height="30" uuid="515a1480-759a-42ef-a3a6-0bc341b0a142">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f70d0875-10f7-46d7-b21b-084ba46bc527"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Britannic Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="10" width="90" height="30" uuid="81262f32-efd6-452b-a4c5-053d1c2c7194">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08b8ed2b-8ab1-4ec5-b26a-c32a6dff854d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Britannic Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="10" width="100" height="30" uuid="859b45e7-a43c-4fb5-9431-f173d8294bed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e78ebaa3-e55b-4438-ab91-89bf1224ff27"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Britannic Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="10" width="100" height="30" uuid="a2130677-e813-47c8-9078-15ce162d8fb5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e78ebaa3-e55b-4438-ab91-89bf1224ff27"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Britannic Bold" size="16"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-20" y="1" width="595" height="1" uuid="f9af4394-390a-4fce-9fe9-ef5e1c0f2f3f"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="20" width="100" height="30" uuid="3728021f-57a1-4f18-9fda-088b86a89cb3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f70d0875-10f7-46d7-b21b-084ba46bc527"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{itemName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="20" width="90" height="30" uuid="2fde6f2b-739f-4406-ab1d-530ca618706a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e78ebaa3-e55b-4438-ab91-89bf1224ff27"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="20" width="90" height="30" uuid="7cc3f4dc-7996-4c33-afe5-b1b69c8208fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="08b8ed2b-8ab1-4ec5-b26a-c32a6dff854d"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{weight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="20" width="16" height="21" uuid="1435018f-51d8-4992-bb40-417aa262956f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[X]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="20" width="100" height="30" uuid="9084a123-9c02-4ee0-82d4-31eff6c6e730">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8545ef77-f37f-4c0e-ae4c-605e15803add"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{value}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="150" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band height="265" splitType="Stretch">
+			<staticText>
+				<reportElement x="207" y="246" width="140" height="14" uuid="64a09b99-a917-4c60-9377-7bf0d3349ede"/>
+				<textElement>
+					<font fontName="Franklin Gothic Medium" size="11"/>
+				</textElement>
+				<text><![CDATA[ www.easternallied.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="188" y="230" width="160" height="20" uuid="0b9643f9-ee48-4974-b9c0-4866c15d4a13"/>
+				<textElement>
+					<font fontName="Britannic Bold" size="14"/>
+				</textElement>
+				<text><![CDATA[THANK YOU COME AGAIN.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="466" y="120" width="100" height="30" uuid="e4844e9c-4ea0-4718-84a1-9906af0281f9"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{param1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="150" width="100" height="30" uuid="4b4c7498-db91-4181-8b5a-5cd2efe31ac8"/>
+				<textElement>
+					<font fontName="Yu Gothic UI Light" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{param2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="70" width="100" height="30" uuid="fd43eca4-9953-4f40-86bc-60767860cbfb"/>
+				<textElement>
+					<font fontName="Bodoni MT Black" size="19"/>
+				</textElement>
+				<text><![CDATA[Total  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="470" y="70" width="100" height="30" uuid="8e291049-2aa2-4275-a87b-a825c8587538">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d2618d32-9d1c-43f6-8428-33fcbfad96d0"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Serif" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{payment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="120" width="100" height="30" uuid="24fad873-c254-432c-bb76-cf2b35f28be4"/>
+				<textElement>
+					<font fontName="Century" size="16"/>
+				</textElement>
+				<text><![CDATA[Cash      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="150" width="100" height="30" uuid="1a324a7f-3a88-47a0-86c0-825bff9295da"/>
+				<textElement>
+					<font fontName="Century" size="16"/>
+				</textElement>
+				<text><![CDATA[Balance :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="440" y="90" width="105" height="1" uuid="a30f8450-84a3-4ca1-b20a-409406ac0113"/>
+			</line>
+			<line>
+				<reportElement x="440" y="100" width="105" height="1" uuid="4de8cb6d-d5e1-4f01-86d0-466c9bd6b5d1"/>
+			</line>
+			<line>
+				<reportElement x="440" y="70" width="105" height="1" uuid="8637df7c-805c-494c-9b38-e72a121a0e80"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

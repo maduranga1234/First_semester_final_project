@@ -4,8 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import lk.ijse.super_cargo.db.DBConnection;
 import lk.ijse.super_cargo.dto.Employee;
+import lk.ijse.super_cargo.dto.Item;
 import lk.ijse.super_cargo.dto.Supplier;
+import lk.ijse.super_cargo.dto.tm.ItemTm;
 import lk.ijse.super_cargo.dto.tm.SupplierTm;
+import lk.ijse.super_cargo.util.CrudUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,101 +33,109 @@ public class SupplierModel {
         String sql="INSERT INTO supplier(supplierId,supplierName,address,contactNumber,email)" +
                 "VALUES (?,?,?,?,?)";
 
-        PreparedStatement pstm= DBConnection.getInstance().getConnection().prepareStatement(sql);
-
-
-        pstm.setString(1,supplier.getSupplierId());
-        pstm.setString(2,supplier.getSupplierName());
-        pstm.setString(3,supplier.getAddress());
-        pstm.setString(4,supplier.getContact());
-        pstm.setString(5,supplier.getEmail());
-
-        int affecteRows=pstm.executeUpdate();
-        return affecteRows > 0;
+        return CrudUtil.execute(
+                sql,
+               supplier.getSupplierId(),
+                supplier.getSupplierName(),
+                supplier.getAddress(),
+                supplier.getContact(),
+                supplier.getEmail()
+        );
     }
 
     public static Supplier Search(String supplierId) throws SQLException {
         String sql = "SELECT * FROM supplier WHERE supplierId=?";
 
-        ResultSet resultSet;
+        ResultSet resultSet=CrudUtil.execute(sql,supplierId);
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, supplierId);
+        if(resultSet.next()){
+            return (new Supplier(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            ));
 
-            resultSet = pstm.executeQuery();
-
-
-            if (resultSet.next()) {
-                return new Supplier(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5)
-                );
-
-            }
-
-        }return null;
+        }
+        return null;
     }
 
     public static ObservableList<SupplierTm> getAll() throws SQLException {
         String sql = "SELECT * FROM supplier";
 
 
-        ResultSet resultSet;
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            resultSet = pstm.executeQuery();
+        ObservableList <SupplierTm> obList=FXCollections.observableArrayList();
 
+        ResultSet resultSet=CrudUtil.execute(sql);
+        while (resultSet.next()){
 
-            ObservableList<SupplierTm>supplierData= FXCollections.observableArrayList();
-
-            while (resultSet.next()) {
-
-                supplierData.add(new SupplierTm(
-                        resultSet.getString(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5)
-
-                ));
-
-            } return supplierData;
+            obList.add(new SupplierTm(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            ));
 
         }
+        return obList;
+
     }
 
     public static boolean Update(Supplier supplier) throws SQLException {
         String sql="UPDATE supplier SET supplierName=?,address=?,contactNumber=?,email=?" +
                 "WHERE supplierId=?";
 
-        int affecteRows;
+        return CrudUtil.execute(
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, supplier.getSupplierName());
-            pstm.setString(2, supplier.getAddress());
-            pstm.setString(3, supplier.getContact());
-            pstm.setString(4, supplier.getEmail());
-            pstm.setString(5, supplier.getSupplierId());
+                sql,
 
-            affecteRows=pstm.executeUpdate();
-
-            return  affecteRows > 0;
-        }
+               supplier.getSupplierName(),
+               supplier.getAddress(),
+               supplier.getContact(),
+               supplier.getEmail(),
+        supplier.getSupplierId());
     }
 
     public static boolean delete(String supplierId) throws SQLException {
         String sql="DELETE FROM supplier WHERE supplierId=?";
 
-        try (PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pstm.setString(1, supplierId);
-
-            int affectRows=pstm.executeUpdate();
-            return affectRows > 0;
-        }
+        return CrudUtil.execute(
+                sql,
+                supplierId
+        );
 
     }
+
+    public static List<String> LoadSupplierIds() throws SQLException {
+        String sql="SELECT supplierId FROM supplier";
+        List<String>allSupplierId=new ArrayList<>();
+
+        ResultSet resultSet=CrudUtil.execute(sql);
+        while(resultSet.next()){
+            allSupplierId.add(resultSet.getString(1));
+
+        }
+        return allSupplierId;
+    }
+
+    public static Supplier searchBySupplierId(String id) throws SQLException {
+        String sql="SELECT * FROM supplier WHERE supplierId=?";
+        ResultSet resultSet=CrudUtil.execute(sql,id);
+
+        if(resultSet.next()){
+            return new Supplier(
+                    resultSet.getString(1),
+                    resultSet.getString(2),
+                    resultSet.getString(3),
+                    resultSet.getString(4),
+                    resultSet.getString(5)
+            );
+        }
+        return null;
+    }
+
 
 }
 

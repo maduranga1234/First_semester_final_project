@@ -2,8 +2,11 @@ package lk.ijse.super_cargo.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -12,7 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
@@ -26,6 +31,8 @@ import lk.ijse.super_cargo.dto.tm.SupplierTm;
 import lk.ijse.super_cargo.model.EmployeeModel;
 import lk.ijse.super_cargo.model.SupplierModel;
 import lk.ijse.super_cargo.util.AlertController;
+import lk.ijse.super_cargo.util.ButtonColourController;
+import lk.ijse.super_cargo.util.ValidationController;
 import lombok.SneakyThrows;
 
 public class SupplierController  implements Initializable {
@@ -92,7 +99,7 @@ public class SupplierController  implements Initializable {
 
         String supplierId=SupIdText.getText();
 
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
+        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this Supplier?");
         if(result==true){
 
             try {
@@ -127,83 +134,125 @@ public class SupplierController  implements Initializable {
     @FXML
     void SupSaveClick(ActionEvent event) throws SQLException {
 
-        Supplier supplier = new Supplier();
+        if (ValidationController.supplierIdCheck(SupIdText.getText())) {
+            if (ValidationController.customerNameValidate(SupNameText.getText())) {
+                if (ValidationController.customerNameValidate(SupAddressText1.getText())) {
+                    if (ValidationController.emailCheck(SupEmailText3.getText())) {
+                        if (ValidationController.BuyercontactCheck(SuoContactText2.getText())) {
 
-        supplier.setSupplierId(SupIdText.getText());
-        supplier.setSupplierName(SupNameText.getText());
-        supplier.setAddress(SupAddressText1.getText());
-        supplier.setContact(SuoContactText2.getText());
-        supplier.setEmail(SupEmailText3.getText());
+                            Supplier supplier = new Supplier();
 
-        try {
-            boolean isSave = SupplierModel.Save(supplier);
-            if (isSave) {
-                AlertController.confirmmessage("Save Successful");
+                            supplier.setSupplierId(SupIdText.getText());
+                            supplier.setSupplierName(SupNameText.getText());
+                            supplier.setAddress(SupAddressText1.getText());
+                            supplier.setContact(SuoContactText2.getText());
+                            supplier.setEmail(SupEmailText3.getText());
+
+                            try {
+                                boolean isSave = SupplierModel.Save(supplier);
+                                if (isSave) {
+                                    AlertController.confirmmessage("Save Successful");
+                                }
+
+                            } catch (SQLIntegrityConstraintViolationException throwables) {
+
+                                AlertController.errormessage("Duplicate Id");
+
+                            } catch (Exception throwables) {
+
+                                AlertController.errormessage("Error");
+
+                            }
+                            getAll();
+
+                            SupIdText.setText("");
+                            SupNameText.setText("");
+                            SupAddressText1.setText("");
+                            SuoContactText2.setText("");
+                            SupEmailText3.setText("");
+                            searchText.setText("");
+
+                        }else{
+                            AlertController.errormessage("Invalied Contact Number");
+                        }
+                    }else{
+                        AlertController.errormessage("Invalied Email");
+                    }
+                }else{
+                    AlertController.errormessage("Invalied Address");
+                }
+            }else{
+                AlertController.errormessage("Invalied Supplier Name");
             }
-
-        }catch (SQLException throwables){
-            throwables.printStackTrace();
-            AlertController.errormessage("Somethink went wrong");
+        }else{
+            AlertController.errormessage("Invalied Id");
         }
-        getAll();
 
-        SupIdText.setText("");
-        SupNameText.setText("");
-        SupAddressText1.setText("");
-        SuoContactText2.setText("");
-        SupEmailText3.setText("");
-        searchText.setText("");
     }
-
-
 
     @FXML
     void SupUpdateClick(ActionEvent event) throws SQLException {
 
-        Supplier supplier=new Supplier();
+
+        if (ValidationController.supplierIdCheck(SupIdText.getText())) {
+            if (ValidationController.customerNameValidate(SupNameText.getText())) {
+                if (ValidationController.customerNameValidate(SupAddressText1.getText())) {
+                    if (ValidationController.emailCheck(SupEmailText3.getText())) {
+                        if (ValidationController.BuyercontactCheck(SuoContactText2.getText())) {
+
+                            Supplier supplier = new Supplier();
 
 
-        supplier.setSupplierId(SupIdText.getText());
-        supplier.setSupplierName(SupNameText.getText());
-        supplier.setAddress(SupAddressText1.getText());
-        supplier.setContact(SuoContactText2.getText());
-        supplier.setEmail(SupEmailText3.getText());
+                supplier.setSupplierId(SupIdText.getText());
+                supplier.setSupplierName(SupNameText.getText());
+                supplier.setAddress(SupAddressText1.getText());
+                supplier.setContact(SuoContactText2.getText());
+                supplier.setEmail(SupEmailText3.getText());
 
 
+                boolean result = AlertController.okconfirmmessage("Are you sure you want to Update this Supplier?");
+                if (result == true) {
 
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
-        if(result==true){
+                    try {
+                        boolean isUpdates = SupplierModel.Update(supplier);
+                        if (isUpdates) {
+                            AlertController.confirmmessage("Update Successful");
 
-            try
-            {
-                boolean isUpdates=SupplierModel.Update(supplier);
-                if(isUpdates){
-                    AlertController.confirmmessage("Update Successful");
+                        } else {
+
+                            AlertController.errormessage("Somethink went wrong");
+                        }
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                        AlertController.errormessage("Somethink went wrong");
+                    }
 
                 }
-                else{
 
-                    AlertController.errormessage("Somethink went wrong");
+
+                setCellValueFactory();
+                getAll();
+                SupIdText.setText("");
+                SupNameText.setText("");
+                SupAddressText1.setText("");
+                SuoContactText2.setText("");
+                SupEmailText3.setText("");
+
+                        }else{
+                            AlertController.errormessage("Invalied Contact Number");
+                        }
+                    }else{
+                        AlertController.errormessage("Invalied Email");
+                    }
+                }else{
+                    AlertController.errormessage("Invalied Address");
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                AlertController.errormessage("Somethink went wrong");
+            }else{
+                AlertController.errormessage("Invalied Supplier Name");
             }
-
+        }else{
+            AlertController.errormessage("Invalied Id");
         }
-
-
-    setCellValueFactory();
-    getAll();
-
-
-
-        SupIdText.setText("");
-        SupNameText.setText("");
-        SupAddressText1.setText("");
-        SuoContactText2.setText("");
-        SupEmailText3.setText("");
-        searchText.setText("");
 
 
     }
@@ -315,6 +364,15 @@ public class SupplierController  implements Initializable {
             SupplierTbl.setItems(filteredData);} else {
             SupplierTbl.setItems(obList);
         }
+
+
+    }
+
+    public void BackBtnClick(ActionEvent event) throws IOException {
+
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/SupplierItemDetail.fxml"));
+        AnchorpaneHome.getChildren().clear();
+        AnchorpaneHome.getChildren().add(load);
 
 
     }

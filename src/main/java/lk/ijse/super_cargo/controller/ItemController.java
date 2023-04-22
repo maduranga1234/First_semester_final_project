@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -28,7 +29,10 @@ import lk.ijse.super_cargo.model.EmployeeModel;
 import lk.ijse.super_cargo.model.ItemModel;
 import lk.ijse.super_cargo.model.SupplierModel;
 import lk.ijse.super_cargo.util.AlertController;
+import lk.ijse.super_cargo.util.ValidationController;
 import lombok.SneakyThrows;
+
+import javax.mail.FetchProfile;
 
 public class ItemController implements Initializable {
 
@@ -95,7 +99,7 @@ public class ItemController implements Initializable {
 
         String itemId=ItemIdText.getText();
 
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
+        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this Item?");
         if(result==true){
 
             try {
@@ -128,94 +132,139 @@ public class ItemController implements Initializable {
 
     @FXML
     void ItemSaveClick(ActionEvent event) throws SQLException {
+        System.out.println(QualityBox.getValue());
 
-        Item item=new Item();
-
-        item.setItemId(ItemIdText.getText());
-        item.setItemName(ItemNameText.getText());
-        item.setWeight(Double.parseDouble(WeightText.getText()));
-        item.setUnitPrice(Double.parseDouble(PriceText.getText()));
-        item.setQuality(String.valueOf(QualityBox.getValue()));
+        if (ValidationController.itemIdCheck(ItemIdText.getText())) {
+            if (ValidationController.customerNameValidate(ItemNameText.getText())) {
+                if (ValidationController.salary(WeightText.getText())) {
+                    if (ValidationController.salary(PriceText.getText())) {
+                        if (!QualityBox.getSelectionModel().isEmpty()) {
 
 
-        try {
-            boolean isSave = ItemModel.Save(item);
-            if (isSave) {
-                AlertController.confirmmessage("Save successFully");
+                            Item item = new Item();
 
+                            item.setItemId(ItemIdText.getText());
+                            item.setItemName(ItemNameText.getText());
+                            item.setWeight(Double.parseDouble(WeightText.getText()));
+                            item.setUnitPrice(Double.parseDouble(PriceText.getText()));
+                            item.setQuality(String.valueOf(QualityBox.getValue()));
+
+
+                            try {
+                                boolean isSave = ItemModel.Save(item);
+                                if (isSave) {
+                                    AlertController.confirmmessage("Save successFully");
+
+                                }
+
+                            } catch (SQLIntegrityConstraintViolationException throwables) {
+
+                                AlertController.errormessage("Duplicate Id");
+
+                            } catch (Exception throwables) {
+
+                                AlertController.errormessage("Error");
+
+                            }
+
+                            getAll();
+
+                            ItemIdText.setText("");
+                            ItemNameText.setText("");
+                            WeightText.setText("");
+                            PriceText.setText("");
+                            QualityBox.setValue("");
+
+                        }else{
+                            AlertController.errormessage("Please Select Quality");
+
+                        }
+
+                    }else{
+                        AlertController.errormessage("invalied Price");
+                    }
+                }else{
+                    AlertController.errormessage("invalied Weight");
+                }
+            }else{
+                AlertController.errormessage("invalied Item Name");
             }
-
-        }catch (SQLException throwables){
-            throwables.printStackTrace();
-            AlertController.errormessage("Somethink went wrong");
+        } else {
+            AlertController.errormessage("invalied Id");
         }
-
-          getAll();
-
-        ItemIdText.setText("");
-        ItemNameText.setText("");
-        WeightText.setText("");
-        PriceText.setText("");
-        QualityBox.setValue("");
-
-
-
-        }
-
+    }
 
 
     @FXML
     void ItemUpdateClick(ActionEvent event) throws SQLException {
 
-        Item item=new Item();
+        if (ValidationController.itemIdCheck(ItemIdText.getText())) {
+            if (ValidationController.customerNameValidate(ItemNameText.getText())) {
+                if (ValidationController.salary(WeightText.getText())) {
+                    if (ValidationController.salary(PriceText.getText())) {
+                        if (!QualityBox.getSelectionModel().isEmpty()) {
 
 
+                            Item item = new Item();
 
-        item.setItemId(ItemIdText.getText());
-        item.setItemName(ItemNameText.getText());
-        item.setWeight(Double.parseDouble(WeightText.getText()));
-        item.setUnitPrice(Double.parseDouble(PriceText.getText()));
-        item.setQuality(String.valueOf(QualityBox.getValue()));
-
-
-
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this employee?");
-        if(result==true){
+            item.setItemId(ItemIdText.getText());
+            item.setItemName(ItemNameText.getText());
+            item.setWeight(Double.parseDouble(WeightText.getText()));
+            item.setUnitPrice(Double.parseDouble(PriceText.getText()));
+            item.setQuality(String.valueOf(QualityBox.getValue()));
 
 
-            try
-            {
-                boolean isUpdates=ItemModel.Update(item);
-                if(isUpdates){
-                    AlertController.confirmmessage("Update successFully");
+            boolean result = AlertController.okconfirmmessage("Are you sure you want to Update  this Item?");
+            if (result == true) {
 
 
-                }
-                else{
+                try {
+                    boolean isUpdates = ItemModel.Update(item);
+                    if (isUpdates) {
+                        AlertController.confirmmessage("Update successFully");
 
+
+                    } else {
+
+                        AlertController.errormessage("Somethink went wrong");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                     AlertController.errormessage("Somethink went wrong");
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                AlertController.errormessage("Somethink went wrong");
+
+
             }
 
 
+            setCellValueFactory();
+            getAll();
+
+
+            ItemIdText.setText("");
+            ItemNameText.setText("");
+            WeightText.setText("");
+            PriceText.setText("");
+            QualityBox.setValue("");
+            searchText.setText("");
+
+                        }else{
+                            AlertController.errormessage("Please Select Quality");
+
+                        }
+
+                    }else{
+                        AlertController.errormessage("invalied Price");
+                    }
+                }else{
+                    AlertController.errormessage("invalied Weight");
+                }
+            }else{
+                AlertController.errormessage("invalied Item Name");
+            }
+        } else {
+            AlertController.errormessage("invalied Id");
         }
-
-
-        setCellValueFactory();
-        getAll();
-
-
-
-        ItemIdText.setText("");
-        ItemNameText.setText("");
-        WeightText.setText("");
-        PriceText.setText("");
-        QualityBox.setValue("");
-        searchText.setText("");
-
     }
 
     @FXML

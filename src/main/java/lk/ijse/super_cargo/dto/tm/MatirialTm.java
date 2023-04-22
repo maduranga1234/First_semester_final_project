@@ -12,6 +12,7 @@ import lombok.*;
 public class MatirialTm {
 
     private String matirialId;
+    private String supplierId;
     private String matirialName;
     private double weight;
     private double Price;

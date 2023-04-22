@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorpaneHome" prefHeight="623.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0; -fx-background-color: 42FF00;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.OwnerHomeController">
+   <children>
+      <PieChart fx:id="pieChart" layoutX="585.0" layoutY="297.0" prefHeight="287.0" prefWidth="389.0" stylesheets="@../Style.css" />
+      <BarChart fx:id="barChart" layoutX="46.0" layoutY="312.0" prefHeight="275.0" prefWidth="427.0" stylesheets="@../Style.css">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <AnchorPane layoutX="162.0" layoutY="118.0" prefHeight="135.0" prefWidth="142.0" style="-fx-background-color: #00dc84; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 15;">
+         <children>
+            <Label layoutX="3.0" layoutY="41.0" prefHeight="22.0" prefWidth="136.0" text="Total Customers">
+               <font>
+                  <Font name="Book Antiqua Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="CustomerLbl" layoutX="37.0" layoutY="68.0" prefHeight="53.0" prefWidth="68.0">
+               <font>
+                  <Font name="Baskerville Old Face" size="36.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="45.0" fitWidth="48.0" layoutX="55.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/buyer.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="716.0" layoutY="118.0" prefHeight="135.0" prefWidth="142.0" style="-fx-background-color: #00dc84; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius: 15;">
+         <children>
+            <Label fx:id="IncomeLbl" layoutX="37.0" layoutY="68.0" prefHeight="45.0" prefWidth="105.0">
+               <font>
+                  <Font name="Baskerville Old Face" size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="4.0" layoutY="45.0" prefHeight="23.0" prefWidth="136.0" text=" Today Income">
+               <font>
+                  <Font name="Book Antiqua Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="51.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/coins.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="442.0" layoutY="118.0" prefHeight="135.0" prefWidth="142.0" style="-fx-background-color: #00dc84; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);">
+         <children>
+            <Label fx:id="OrdersLbl" layoutX="53.0" layoutY="68.0" prefHeight="53.0" prefWidth="68.0">
+               <font>
+                  <Font name="Baskerville Old Face" size="36.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="45.0" prefHeight="22.0" prefWidth="105.0" text="Total Orders">
+               <font>
+                  <Font name="Book Antiqua Bold" size="18.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="45.0" fitWidth="59.0" layoutX="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../lk.ijse.super_cargo.image/export.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="377.0" layoutY="14.0" prefHeight="49.0" prefWidth="271.0" text="Home Page" textFill="#0ce430" underline="true">
+         <font>
+            <Font name="Bodoni MT Black Italic" size="39.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

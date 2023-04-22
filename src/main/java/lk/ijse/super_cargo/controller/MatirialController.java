@@ -5,6 +5,8 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
@@ -22,9 +24,12 @@ import lk.ijse.super_cargo.dto.Item;
 import lk.ijse.super_cargo.dto.Matirial;
 import lk.ijse.super_cargo.dto.tm.ItemTm;
 import lk.ijse.super_cargo.dto.tm.MatirialTm;
+import lk.ijse.super_cargo.model.EmployeeModel;
 import lk.ijse.super_cargo.model.ItemModel;
 import lk.ijse.super_cargo.model.MatirialModel;
+import lk.ijse.super_cargo.model.SupplierModel;
 import lk.ijse.super_cargo.util.AlertController;
+import lk.ijse.super_cargo.util.ValidationController;
 
 public class MatirialController implements Initializable {
 
@@ -45,6 +50,8 @@ public class MatirialController implements Initializable {
 
     @FXML
     private JFXTextField MatirialWeighText;
+    @FXML
+    private JFXTextField SupplierIdText;
 
     @FXML
     private JFXTextField MatirialPriceText;
@@ -56,6 +63,9 @@ public class MatirialController implements Initializable {
 
     @FXML
     private JFXComboBox MatirialQualityBox;
+
+    @FXML
+    private JFXComboBox<String> SupplierIdBox;
 
     @FXML
     private JFXButton MatirialUpdateBtn;
@@ -90,6 +100,9 @@ public class MatirialController implements Initializable {
     private TableColumn<?, ?> MatirialQualityCol;
 
     @FXML
+    private TableColumn<?, ?> SupplierIdCol;
+
+    @FXML
     void MatirialBoxOnAction(ActionEvent event) {
 
     }
@@ -108,7 +121,7 @@ public class MatirialController implements Initializable {
                     AlertController.confirmmessage("Delete successFully");
 
                 } else {
-                    AlertController.errormessage("Somethink went wrong");
+                    AlertController.errormessage("Somethink went wrong1");
                 }
             }catch (SQLException throwables){
                 throwables.printStackTrace();
@@ -126,6 +139,7 @@ public class MatirialController implements Initializable {
         MatirialWeighText.setText("");
         MatirialPriceText.setText("");
         MatirialQualityBox.setValue("");
+        SupplierIdText.setText("");
 
 
 
@@ -136,90 +150,150 @@ public class MatirialController implements Initializable {
     @FXML
     void MatirialSaveClick(ActionEvent event) throws SQLException {
 
-        Matirial matirial=new Matirial();
+        if (ValidationController.matirialIdCheck(MatirealIdText.getText())) {
+            if (ValidationController.customerNameValidate(MatirialNameText.getText())) {
+                if (ValidationController.salary(MatirialWeighText.getText())) {
+                    if (!SupplierIdBox.getSelectionModel().isEmpty()) {
+                        if (ValidationController.salary(MatirialPriceText.getText())) {
+                            if (!MatirialQualityBox.getSelectionModel().isEmpty()) {
 
 
-        matirial.setMatirialId(MatirealIdText.getText());
-        matirial.setMatirialName(MatirialNameText.getText());
-        matirial.setWeight(Double.parseDouble(MatirialWeighText.getText()));
-        matirial.setPrice(Double.parseDouble(MatirialPriceText.getText()));
-        matirial.setQuality(String.valueOf(MatirialQualityBox.getValue()));
+                                Matirial matirial = new Matirial();
 
-        try {
-            boolean isSave = MatirialModel.Save(matirial);
-            if (isSave) {
-                AlertController.confirmmessage("Save successFully");
+
+                                matirial.setMatirialId(MatirealIdText.getText());
+                                matirial.setSupplierId(SupplierIdBox.getValue());
+                                matirial.setMatirialName(MatirialNameText.getText());
+                                matirial.setWeight(Double.parseDouble(MatirialWeighText.getText()));
+                                matirial.setPrice(Double.parseDouble(MatirialPriceText.getText()));
+                                matirial.setQuality(String.valueOf(MatirialQualityBox.getValue()));
+
+                                try {
+                                    boolean isSave = MatirialModel.Save(matirial);
+                                    if (isSave) {
+                                        AlertController.confirmmessage("Save successFully");
+                                    }
+                                } catch (SQLIntegrityConstraintViolationException throwables) {
+
+                                    AlertController.errormessage("Duplicate Id");
+
+                                } catch (Exception throwables) {
+
+                                    AlertController.errormessage("Error");
+
+                                }
+                                getAll();
+
+                                MatirealIdText.setText("");
+                                MatirialNameText.setText("");
+                                MatirialWeighText.setText("");
+                                MatirialPriceText.setText("");
+                                MatirialQualityBox.setValue("");
+                                SupplierIdBox.setValue("");
+
+                            }else {
+                                AlertController.errormessage("Please Select Quality");
+
+                            }
+                        }else {
+                            AlertController.errormessage("invalied Price");
+
+                        }
+                    }else{
+                        AlertController.errormessage("Please Select Supplier Id");
+                    }
+                }else {
+                    AlertController.errormessage("invalied Weight");
+                }
+            }else {
+                AlertController.errormessage("invalied Name");
             }
-        }catch (SQLException throwables){
-            throwables.printStackTrace();
-            AlertController.errormessage("Somethink went wrong");
+        }else{
+            AlertController.errormessage("invalied Id");
+
         }
-        getAll();
-
-        MatirealIdText.setText("");
-        MatirialNameText.setText("");
-        MatirialWeighText.setText("");
-        MatirialPriceText.setText("");
-        MatirialQualityBox.setValue("");
     }
-
-
 
     @FXML
     void MatirialUpdateClick(ActionEvent event) throws SQLException {
 
-        Matirial matirial=new Matirial();
+        if (ValidationController.matirialIdCheck(MatirealIdText.getText())) {
+            if (ValidationController.customerNameValidate(MatirialNameText.getText())) {
+                if (ValidationController.salary(MatirialWeighText.getText())) {
+                    if (!SupplierIdBox.getSelectionModel().isEmpty()) {
+                        if (ValidationController.salary(MatirialPriceText.getText())) {
+                            if (!MatirialQualityBox.getSelectionModel().isEmpty()) {
+
+            Matirial matirial = new Matirial();
 
 
-
-        matirial.setMatirialId(MatirealIdText.getText());
-        matirial.setMatirialName(MatirialNameText.getText());
-        matirial.setWeight(Double.parseDouble(MatirialWeighText.getText()));
-        matirial.setPrice(Double.parseDouble(MatirialPriceText.getText()));
-        matirial.setQuality(String.valueOf(MatirialQualityBox.getValue()));
-
-
-        boolean result = AlertController.okconfirmmessage("Are you sure you want to remove this matirial?");
-        if(result==true){
+            matirial.setMatirialId(MatirealIdText.getText());
+            matirial.setSupplierId(SupplierIdBox.getValue());
+            matirial.setMatirialName(MatirialNameText.getText());
+            matirial.setWeight(Double.parseDouble(MatirialWeighText.getText()));
+            matirial.setPrice(Double.parseDouble(MatirialPriceText.getText()));
+            matirial.setQuality(String.valueOf(MatirialQualityBox.getValue()));
 
 
-            try
-            {
-                boolean isUpdates=MatirialModel.Update(matirial);
-                if(isUpdates){
-                    AlertController.confirmmessage("Update successFully");
+            boolean result = AlertController.okconfirmmessage("Are you sure you want to Update this matirial?");
+            if (result == true) {
 
 
-                }
-                else{
+                try {
+                    boolean isUpdates = MatirialModel.Update(matirial);
+                    if (isUpdates) {
+                        AlertController.confirmmessage("Update successFully");
 
+
+                    } else {
+
+                        AlertController.errormessage("Somethink went wrong");
+                    }
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                     AlertController.errormessage("Somethink went wrong");
                 }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-                AlertController.errormessage("Somethink went wrong");
+
+
             }
 
 
+            setCellValueFactory();
+            getAll();
+
+
+            MatirealIdText.setText("");
+            MatirialNameText.setText("");
+            MatirialWeighText.setText("");
+            MatirialPriceText.setText("");
+            MatirialQualityBox.setValue("");
+            searchText.setText("");
+            SupplierIdBox.setValue("");
+
+
+                            }else {
+                                AlertController.errormessage("Please Select Quality");
+
+                            }
+                        }else {
+                            AlertController.errormessage("invalied Price");
+
+                        }
+                    }else{
+                        AlertController.errormessage("Please Select Supplier Id");
+                    }
+                }else {
+                    AlertController.errormessage("invalied Weight");
+                }
+            }else {
+                AlertController.errormessage("invalied Name");
+            }
+        }else{
+            AlertController.errormessage("invalied Id");
+
         }
 
-
-        setCellValueFactory();
-        getAll();
-
-
-
-        MatirealIdText.setText("");
-        MatirialNameText.setText("");
-        MatirialWeighText.setText("");
-        MatirialPriceText.setText("");
-        MatirialQualityBox.setValue("");
-        searchText.setText("");
-
-
     }
-
-
 
 
     public void SearchClick(ActionEvent event) {
@@ -230,6 +304,7 @@ public class MatirialController implements Initializable {
             Matirial matirial= MatirialModel.Search(matirialId);
 
             MatirealIdText.setText(matirial.getMatirialId());
+            SupplierIdBox.setValue(matirial.getSupplierId());
             MatirialNameText.setText(matirial.getMatirialName());
             MatirialWeighText.setText(String.valueOf(matirial.getWeight()));
             MatirialPriceText.setText(String.valueOf(matirial.getPrice()));
@@ -253,6 +328,7 @@ public class MatirialController implements Initializable {
     private void setCellValueFactory(){
 
         MatirialIdCol.setCellValueFactory(new PropertyValueFactory<>("matirialId"));
+        SupplierIdCol.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
         MatirialNameCol.setCellValueFactory(new PropertyValueFactory<>("matirialName"));
         MatirialWeightCol.setCellValueFactory(new PropertyValueFactory<>("weight"));
         MatirialPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -291,11 +367,16 @@ public class MatirialController implements Initializable {
 //
 //
 //    }
+@FXML
+void SupplierIdBoxOnAction(ActionEvent event) {
+
+}
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MatirialQualityBox.getItems().addAll("Good", "Normal","Bad");
+        LoadSupplierId();
 
         try {
             getAll();
@@ -334,11 +415,29 @@ public class MatirialController implements Initializable {
 
 
         MatirealIdText.setText(columns.get(0).getCellData(row).toString());
-        MatirialNameText.setText(columns.get(1).getCellData(row).toString());
-        MatirialWeighText.setText(columns.get(2).getCellData(row).toString());
-        MatirialPriceText.setText(columns.get(3).getCellData(row).toString());
-        MatirialQualityBox.setValue(columns.get(4).getCellData(row).toString());
+        SupplierIdBox.setValue(columns.get(1).getCellData(row).toString());
+        MatirialNameText.setText(columns.get(2).getCellData(row).toString());
+        MatirialWeighText.setText(columns.get(3).getCellData(row).toString());
+        MatirialPriceText.setText(columns.get(4).getCellData(row).toString());
+        MatirialQualityBox.setValue(columns.get(5).getCellData(row).toString());
 
+    }
+
+    private void LoadSupplierId(){
+
+        try{
+            ObservableList<String>supplierIds= FXCollections.observableArrayList();
+            List<String> ids = SupplierModel.LoadSupplierIds();
+
+            for(String id:ids) {
+                supplierIds.add(id);
+
+            }
+            SupplierIdBox.setItems(supplierIds);
+
+        }catch (SQLException throwables){
+            AlertController.errormessage("Something went Wrong");
+        }
     }
 }
 

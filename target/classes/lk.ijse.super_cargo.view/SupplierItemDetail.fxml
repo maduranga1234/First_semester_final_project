@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorpaneHome" opacity="0.98" prefHeight="623.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 40px 40px 0; -fx-background-color: 42FF00;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.super_cargo.controller.SupplierItemDetailController">
+   <children>
+      <JFXComboBox fx:id="SupplierIdBox" layoutX="14.0" layoutY="117.0" onAction="#SpplierCodeLodeOnAction" prefHeight="25.0" prefWidth="163.0" promptText="Supplier Id" unFocusColor="#2eff13" />
+      <JFXComboBox fx:id="ItemCodeBox" layoutX="14.0" layoutY="173.0" onAction="#ItemCodeLodeOnAction" prefHeight="25.0" prefWidth="163.0" promptText="Item Code" unFocusColor="#2eff13" />
+      <JFXComboBox fx:id="paymentMethordBox" layoutX="14.0" layoutY="234.0" onAction="#PaymentMethordBoxOnAction" prefHeight="25.0" prefWidth="163.0" promptText="Payment Methord" unFocusColor="#2eff13" />
+      <Label layoutX="216.0" layoutY="172.0" prefHeight="28.0" prefWidth="106.0" text="Item Name  :" textFill="#050217">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="485.0" layoutY="172.0" prefHeight="28.0" prefWidth="133.0" text="Qty On Hands  :">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="ItemNameLabel" layoutX="326.0" layoutY="172.0" prefHeight="28.0" prefWidth="147.0" textFill="#00ff55">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblQtyOnHands" layoutX="614.0" layoutY="172.0" prefHeight="28.0" prefWidth="106.0" textFill="#00ff55">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="212.0" layoutY="233.0" prefHeight="28.0" prefWidth="147.0" text="Supplier Load Id  :" textFill="#050217">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblsupplyloadid" layoutX="343.0" layoutY="233.0" prefHeight="28.0" prefWidth="133.0" textFill="#00ff55">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblsupplierloadid" layoutX="359.0" layoutY="233.0" prefHeight="28.0" prefWidth="133.0" textFill="#ff6a00">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <Label layoutX="492.0" layoutY="236.0" prefHeight="22.0" prefWidth="63.0" text="Date  :" textFill="#050217">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="761.0" layoutY="236.0" prefHeight="1.0" prefWidth="106.0" text="Time :" textFill="#050217">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbldate" layoutX="555.0" layoutY="233.0" prefHeight="28.0" prefWidth="202.0" textFill="RED">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTime" layoutX="814.0" layoutY="233.0" prefHeight="28.0" prefWidth="147.0" textFill="RED">
+         <font>
+            <Font name="Bodoni MT Black" size="17.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="ItemContityText" focusColor="#0d4cdd" labelFloat="true" layoutX="14.0" layoutY="292.0" prefHeight="27.0" prefWidth="163.0" promptText="Item Contity" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bell MT Bold" size="16.0" />
+         </font>
+      </JFXTextField>
+      <Button fx:id="addToLoad" layoutX="14.0" layoutY="339.0" mnemonicParsing="false" onAction="#AddToLoadClick" prefHeight="27.0" prefWidth="106.0" style="-fx-background-color: #00ff55; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Add To Load">
+         <font>
+            <Font name="Bell MT Bold" size="13.0" />
+         </font></Button>
+      <TableView fx:id="tblSupplierItem" layoutX="15.0" layoutY="382.0" prefHeight="198.0" prefWidth="988.0" stylesheets="@../Style.css">
+         <columns>
+            <TableColumn fx:id="ItemCodeCol" prefWidth="159.0" text="Item Code" />
+            <TableColumn fx:id="ItemNameCol" prefWidth="183.0" text="Item Name" />
+            <TableColumn fx:id="Quantity" prefWidth="246.0" text="Quantity" />
+            <TableColumn fx:id="PaymentCol" prefWidth="200.0" text="Payment" />
+            <TableColumn fx:id="ActionCol" prefWidth="198.0" text="     Action" />
+         </columns>
+      </TableView>
+      <Label fx:id="SupplierNameLbl" layoutX="212.0" layoutY="113.0" prefHeight="33.0" prefWidth="163.0" textFill="#00ff55">
+         <font>
+            <Font name="Bodoni MT Black" size="21.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="PriceText" focusColor="#0d4cdd" labelFloat="true" layoutX="212.0" layoutY="292.0" prefHeight="33.0" prefWidth="209.0" promptText="Load Payment" unFocusColor="#0eff2e">
+         <font>
+            <Font name="Bell MT Bold" size="16.0" />
+         </font>
+      </JFXTextField>
+      <Button fx:id="AddSupplierLoad" disable="true" layoutX="14.0" layoutY="584.0" mnemonicParsing="false" onAction="#AddSupplierLoadOnAction" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #00ff55; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10);" text="Add Supplier Load">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font></Button>
+      <Hyperlink fx:id="AddNewSupplierHyperLink" layoutX="849.0" layoutY="117.0" onAction="#AddNewSupplierClick" prefHeight="25.0" prefWidth="147.0" text="      Add New Supplier" textFill="#197506">
+         <font>
+            <Font name="Bell MT Bold" size="14.0" />
+         </font>
+      </Hyperlink>
+      <ImageView fitHeight="22.0" fitWidth="21.0" layoutX="849.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../lk.ijse.super_cargo.image/images%20(1).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="221.0" layoutY="14.0" prefHeight="49.0" prefWidth="584.0" text="Supplier Item Details Form" textFill="#0ce430" underline="true">
+         <font>
+            <Font name="Bodoni MT Black Italic" size="39.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

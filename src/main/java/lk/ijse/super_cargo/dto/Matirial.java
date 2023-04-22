@@ -13,6 +13,7 @@ public class Matirial {
 
 
     private String matirialId;
+    private String supplierId;
     private String matirialName;
     private double weight;
     private  double price;

@@ -83,9 +83,9 @@ public class ManagerHomeController {
     @FXML
     void HomeManagerBtnClick(ActionEvent event) throws IOException {
 
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/managerHomePage.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/ownerHome.fxml"));
         AnchorpaneHome.getChildren().clear();
-        ManagerHomeAnchor.getChildren().add(load);
+        AnchorpaneHome.getChildren().add(load);
         ButtonColourController.btncolor(HomeManagerBtn,AnchorpaneHome);
 
 
@@ -101,15 +101,7 @@ public class ManagerHomeController {
 
     }
 
-    @FXML
-    void PaymentManagerBtnClick(ActionEvent event) throws IOException {
 
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/payment.fxml"));
-        AnchorpaneHome.getChildren().clear();
-        AnchorpaneHome.getChildren().add(load);
-        ButtonColourController.btncolor(PaymentManagerBtn,AnchorpaneHome);
-
-    }
 
     @FXML
     void StockManagerBtnClick(ActionEvent event) throws IOException {

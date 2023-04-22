@@ -3,6 +3,7 @@ package lk.ijse.super_cargo.controller;
 import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,7 +20,13 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.super_cargo.db.DBConnection;
 import lk.ijse.super_cargo.util.ButtonColourController;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class DashBordController {
 
@@ -72,6 +79,9 @@ public class DashBordController {
     private Hyperlink LogOutLink;
 
     @FXML
+    private AnchorPane ancPane;
+
+    @FXML
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -92,11 +102,11 @@ public class DashBordController {
 
     @FXML
     void HomeBtnClick(ActionEvent event) throws IOException {
-
-            Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/dashBord.fxml"));
+            Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/ownerHome.fxml"));
             AnchorpaneHome.getChildren().clear();
-            HomeAnchorpane.getChildren().add(load);
-            ButtonColourController.btncolor(HomeBtn,HomeAnchorpane);
+        AnchorpaneHome.getChildren().add(load);
+            ButtonColourController.btncolor(HomeBtn,AnchorpaneHome);
+
 
     }
 
@@ -105,6 +115,7 @@ public class DashBordController {
         Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/buyer.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
+
         ButtonColourController.btncolor(stockBtn,AnchorpaneHome);
 
     }
@@ -130,7 +141,7 @@ public class DashBordController {
     @FXML
     void SupplierBtnClick(ActionEvent event) throws IOException {
 
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/supplier.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/SupplierItemDetail.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
         ButtonColourController.btncolor(SupplierBtn,AnchorpaneHome);
@@ -139,7 +150,7 @@ public class DashBordController {
 
     @FXML
     void PaymentBtnClick(ActionEvent event) throws IOException {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/payment.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk.ijse.super_cargo.view/salary.fxml"));
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
         ButtonColourController.btncolor(PaymentBtn,AnchorpaneHome);
@@ -157,9 +168,12 @@ public class DashBordController {
         AnchorpaneHome.getChildren().clear();
         AnchorpaneHome.getChildren().add(load);
         ButtonColourController.btncolor(ReportBtn,AnchorpaneHome);
+
+
+
     }
 
-    private void Timenow(){
+    public static void Timenow(Label time,Label date){
         Thread thread =new Thread(() ->{
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
             SimpleDateFormat sdf1 = new SimpleDateFormat("MMMM,  dd, yyyy");
@@ -174,8 +188,8 @@ public class DashBordController {
                 String timenow1 = sdf1.format(new Date());
 
                 Platform.runLater(() ->{
-                    lblTime.setText(timenow);
-                    lblDate.setText(timenow1);
+                    time.setText(timenow);
+                    date.setText(timenow1);
                 });
             }
         });
@@ -192,7 +206,7 @@ public class DashBordController {
     @FXML
     void initialize() {
 
-       Timenow();
+       Timenow(lblTime,lblDate);
         assert AnchorpaneHome != null : "fx:id=\"AnchorpaneHome\" was not injected: check your FXML file 'dashBord.fxml'.";
         assert stockBtn != null : "fx:id=\"stockBtn\" was not injected: check your FXML file 'dashBord.fxml'.";
 

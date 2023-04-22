@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 public class ButtonColourController {
 
     public static void btncolor(JFXButton btn, AnchorPane anchorPane) {
-        btn.setStyle("-fx-background-color: #08de08; -fx-effect:  dropshadow(three-pass-box, rgba(10,10,10,0.6), 10, 0, 0, 10); -fx-background-radius : 3");
+        btn.setStyle("-fx-background-color: #08de08; -fx-effect:  dropshadow(three-pass-box, rgba(10,10,10,10), 10, 0, 0, 10); -fx-background-radius : 3");
         anchorPane.getChildren().addListener((ListChangeListener<Node>) change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
